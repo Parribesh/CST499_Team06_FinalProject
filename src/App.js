@@ -52,8 +52,8 @@ function getDownloadSpeed(stability, speed){
   var min = startSpeed * speed;
   min -= min * stability
   console.log("min: " + min);
-  if(min <= 0){
-    min = 1;
+  if(min < 0){
+    min = 0;
   }
 
   var max = startSpeed * speed;
