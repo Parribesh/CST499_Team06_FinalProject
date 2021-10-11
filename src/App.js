@@ -35,55 +35,102 @@ function App() {
   );
 }
 
-// add stability and variable speeds 
-function getDownloadSpeed(){
-  // type of network | 0 being no speed , 3 being fastest speed
-  // var networkType = Math.floor(Math.random() * 4)
+// add stability and variable speeds
+// first variable is stability and second variable is speed
+// stability: 0 low variability - 1 high variability
+// speed: 0 being no connection - 1 being very fast
+function getDownloadSpeed(stability, speed){
+  if (stability === undefined){
+    stability = .1
+  }
+  if(speed === undefined){
+    speed = .1
+  }
 
-  var min = 95;
-  var max = 120;
+  var startSpeed = 1000
 
-  //add change parameters depending on networkType
+  var min = startSpeed * speed;
+  min -= min * stability
+  console.log("min: " + min);
+  if(min <= 0){
+    min = 1;
+  }
 
-
-  return Math.floor(Math.random() * (max - min) + min);
-}
-
-function getUploadSpeed(){
-  // type of network | 0 being no speed , 3 being fastest speed
-  // var networkType = Math.floor(Math.random() * 4)
-
-  var min = 5;
-  var max = 20;
-
-  //add change parameters depending on networkType
-
-
-  return Math.floor(Math.random() * (max - min) + min);
-}
-
-function getPing(){
-  // type of network | 0 being no speed , 3 being fastest speed
-  // var networkType = Math.floor(Math.random() * 4)
-
-  var min = 10;
-  var max = 15;
-
-  //add change parameters depending on networkType
-
+  var max = startSpeed * speed;
+  max += max * stability;
+  console.log("max: " + max);
 
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-function getJitter(){
-  // type of network | 0 being no speed , 3 being fastest speed
-  // var networkType = Math.floor(Math.random() * 4)
+function getUploadSpeed(stability, speed){
+  if (stability === undefined){
+    stability = .1
+  }
+  if(speed === undefined){
+    speed = .1
+  }
 
-  var min = 0;
-  var max = 5;
+  var startSpeed = 1000
 
-  //add change parameters depending on networkType
+  var min = startSpeed * speed;
+  min -= min * stability
+  console.log("min: " + min);
+  if(min <= 0){
+    min = 1;
+  }
 
+  var max = startSpeed * speed;
+  max += max * stability;
+  console.log("max: " + max);
+
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+function getPing(stability, speed){
+  if (stability === undefined){
+    stability = .3
+  }
+  if(speed === undefined){
+    speed = .2
+  }
+
+  var startSpeed = 300
+
+  var min = startSpeed * speed;
+  min -= min * stability
+  console.log("min: " + min);
+  if(min <= 0){
+    min = 1;
+  }
+
+  var max = startSpeed * speed;
+  max += max * stability;
+  console.log("max: " + max);
+
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+function getJitter(stability, speed){
+  if (stability === undefined){
+    stability = .1
+  }
+  if(speed === undefined){
+    speed = .5
+  }
+
+  var startSpeed = 60
+
+  var min = startSpeed * speed;
+  min -= min * stability
+  console.log("min: " + min);
+  if(min <= 0){
+    min = 1;
+  }
+
+  var max = startSpeed * speed;
+  max += max * stability;
+  console.log("max: " + max);
 
   return Math.floor(Math.random() * (max - min) + min);
 }
