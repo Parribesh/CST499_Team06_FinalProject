@@ -1,11 +1,14 @@
 import React from "react";
+import '../App.css';
 
 function Home() {
     return (
         <div className="home">
             <div class="container">
-                <div class="d-flex text-align-center">
-                    <a className="btn btn-primary" href="./Map" role="button">Start Test</a>
+                <div class="center">
+                    <a href="./Map">
+                        <button className="button">Start Test</button>
+                    </a>
                 </div>
             </div>
         </div>
