@@ -26,7 +26,7 @@ const Chart = (props) => {
 
   return (
     <div>
-      <Line data={charData} />
+      <Line data={charData} options={{maintainAspectRatio:false}}/>
     </div>
   );
 };
