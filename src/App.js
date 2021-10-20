@@ -1,61 +1,28 @@
-<<<<<<< HEAD
-import React, { useState, useEffect } from "react";
-import Chart from "./components/chart.js";
-import "./App.css";
-
-=======
 import './App.css';
-import React from "react";
+import React, {useState, useEffect, useRef} from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Navigation, Footer, Home, About, History, Map } from "./components";
->>>>>>> master
+import Chart from './components/chart.js'
+
 function App() {
-  const [valX, setX] = useState(0);
-  const [valY, setY] = useState(0);
 
-  function handleSubmit(e) {
-    setX((value) => {
-      value = e.target.value;
-    });
+  const [data, setData] = useState([32]);
+  const [label, setLabel] = useState([1]);
+  const count = useRef(0);
+  
+  useEffect(() =>{
+    count.current = count.current+1;
+  })
+  const changeData = () => {
+    const rand = Math.ceil(Math.random() * 35);
+    console.log(rand);
+    setData([...data, rand]);
+    setLabel([...label, count.current])
   }
-
-  // function handleChange(e) {
-  //   setX((value) => {
-  //     value = e.target.value;
-  //   });
-  // }
-
-  useEffect(() => {
-    console.log(valX);
-    return () => {
-      <p>value changed</p>;
-    };
-  }, [valX]);
 
   return (
 
     <div className="App">
-<<<<<<< HEAD
-      <h1>Plotter</h1>
-      <div className="plotter">
-        <Chart />
-        <div className="">
-          <h1>Please enter x and y</h1>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              name="X"
-              placeholder="EnterX"
-              onChange={(e) => {
-                setX(e.target.value);
-              }}
-            />
-            <input type="text" name="Y" placeholder="EnterY" />
-            <input type="submit" value="Submit" />
-          </form>
-        </div>
-      </div>
-=======
         <Router>
             <Navigation />
             <Switch>
@@ -64,9 +31,10 @@ function App() {
                 <Route path="/history" exact component={() => <History />} />
                 <Route path="/map" exact component={() => <Map />} />
             </Switch>
+            <Chart data = {data} label = {label}/>
+            <input type='submit' onClick = {changeData}/>
             <Footer />
         </Router>
->>>>>>> master
     </div>
 
   );

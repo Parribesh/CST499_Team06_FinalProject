@@ -1,67 +1,34 @@
-import { LineChart, XAxis, Tooltip, CartesianGrid, Line } from "recharts";
 import React, { useState, useEffect } from "react";
 
-function Chart() {
-  
-  const [data, setData] = useState([{
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  }]);
-  const res = [{ name: 'Page A', uv: 4000, pv: 2400, amt: 2400 },
-      { name: 'Page B', uv: 3000, pv: 1398, amt: 2210 },
-      { name: 'Page C', uv: 2000, pv: 9800, amt: 2290 },
-      { name: 'Page D', uv: 2780, pv: 3908, amt: 2000 },
-      { name: 'Page E', uv: 1890, pv: 4800, amt: 2181 },
-      { name: 'Page F', uv: 2390, pv: 3800, amt: 2400 },
-      { name: 'Page G', uv: 3490, pv: 4300, amt: 2100 }];
+import { Line } from "react-chartjs-2";
 
-  function handleData() {
-    const rand = Math.ceil(Math.random() * 6); ;
-    console.log(rand)
-   setData([...data, res[rand]]);
-  }
-  function handleSubmit() {
-    handleData();
-  }
+const Chart = (props) => {
+  const [charData, setCharData] = useState({});
 
-    useEffect(() => {
-      return () => {
-        <LineChart
-          width={500}
-          height={400}
-          data={data}
-          margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
-        >
-          <XAxis dataKey="name" />
-          <Tooltip />
-          <CartesianGrid stroke="#f5f5f5" />
-          <Line type="monotone" dataKey="uv" stroke="#ff7300" yAxisId={0} />
-          <Line type="monotone" dataKey="pv" stroke="#387908" yAxisId={1} />
-        </LineChart>;
-      };
-    }, [data]);
+  const setData = () => {
+
+    setCharData({
+      labels: props.label,
+      datasets: [
+        {
+          label: "Your Download Speed",
+          data: props.data,
+          backgroundColor: ['rgba(200, 10, 200, 0.7)'],
+          borderWidhth: 4,
+        },
+      ],
+    });
+  };
+
+  useEffect(() => {
+    setData()
+  }, [props.data])
 
   return (
-    <>
-      <LineChart
-        width={500}
-        height={400}
-        data={data}
-        margin={{ top: 5, right: 20, left: 10, bottom: 5 }}
-      >
-        <XAxis dataKey="name" />
-        <Tooltip />
-        <CartesianGrid stroke="#f5f5f5" />
-        <Line type="monotone" dataKey="uv" stroke="#ff7300" yAxisId={0} />
-        <Line type="monotone" dataKey="pv" stroke="#387908" yAxisId={1} />
-      </LineChart>
-      <div>
-        <input type="submit" onClick={handleSubmit} />
-      </div>
-    </>
+    <div>
+      <Line data={charData} />
+    </div>
   );
-}
+};
 
 export default Chart;
