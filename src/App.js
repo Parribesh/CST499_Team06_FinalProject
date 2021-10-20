@@ -1,9 +1,8 @@
-import './App.css';
-var network = require('./networkSim');
-
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Navigation, Footer, Home, About, History, Map } from "./components";
+import './App.css';
+var network = require('./networkSim');
 function App() {
 
   //examples on how to use it
