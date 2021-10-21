@@ -5,7 +5,7 @@ function Home() {
         <div className="home">
             <div class="container">
                 <div class="d-flex text-align-center">
-                    <a className="btn btn-primary" href="./Map" role="button">Start Test</a>
+                    <a className="btn btn-primary" href="./Tester" role="button">Start Test</a>
                 </div>
             </div>
         </div>
