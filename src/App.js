@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Navigation, Footer, Home, About, History, Map, Testing } from "./components";
-import { Navigation, Footer, Home, About, History, Map } from "./components";
 import './App.css';
 var network = require('./networkSim');
 function App() {
