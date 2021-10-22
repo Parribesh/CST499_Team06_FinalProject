@@ -54,23 +54,6 @@ body {
   background: #59b1e3;
 }
 
-.container {
-
-}
-
-.about {
-  position: absolute;
-  top: 35%;
-  left: 35%;
-  -ms-transform: translate(-25%, -25%);
-  transform: translate(-25%, -25%);
-
-}
-
-.aboutText {
-  font-size: x-large;
-}
-
 .center {
   margin: 0;
   position: absolute;
@@ -102,7 +85,7 @@ body {
   margin: auto;
 }
 
-button::before {
+.button::before {
   content: '';
   border-radius: 1000px;
   min-width: calc(300px + 12px);
@@ -122,11 +105,11 @@ button::before {
   transform: translateY(-6px);
 }
 
-button:hover::before, button:focus::before {
+.button:hover::before, button:focus::before {
   opacity: 1;
 }
 
-button::after {
+.button::after {
   content: '';
   width: 30px; height: 30px;
   border-radius: 100%;
@@ -139,7 +122,7 @@ button::after {
   animation: ring 1.5s infinite;
 }
 
-button:hover::after, button:focus::after {
+.button:hover::after, button:focus::after {
   animation: none;
   display: none;
 }
