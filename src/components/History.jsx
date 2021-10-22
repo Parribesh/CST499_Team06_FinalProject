@@ -1,30 +1,82 @@
 
 import React from "react";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Table from "react-bootstrap/Table";
 
 function History() {
     return (
-        <div className="history">
-            <div class="container">
-                <div class="row align-items-center my-5">
-                    <div class="col-lg-7">
-                        <img
-                            class="img-fluid rounded mb-4 mb-lg-0"
-                            src="http://placehold.it/900x400"
-                            alt=""
-                        />
-                    </div>
-                    <div class="col-lg-5">
-                        <h1 class="font-weight-light">History</h1>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry's standard dummy text
-                            ever since the 1500s, when an unknown printer took a galley of
-                            type and scrambled it to make a type specimen book.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Container>
+            <Row className={"justify-content-center"}>
+                <Col>
+                    <h1>GRAPH</h1>
+                </Col>
+
+            </Row>
+            <Row>
+                <Table striped bordered hover variant={"dark"}>
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Location</th>
+                        <th>Download (mbps)</th>
+                        <th>Upload (mbps)</th>
+                        <th>Jitter (ms)</th>
+                        <th>Latency (ms)</th>
+                        <th>Video Streaming Quality</th>
+                        <th>MOS (Mean Opinion Score)</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Sep 29, 2021</td>
+                        <td>Salinas, 93906</td>
+                        <td>31.43</td>
+                        <td>5.76</td>
+                        <td>7.14</td>
+                        <td>67.54</td>
+                        <td>HD</td>
+                        <td>Satisfactory</td>
+
+                    </tr>
+                    <tr>
+                        <td>Sep 29, 2021</td>
+                        <td>Salinas, 93906</td>
+                        <td>31.49</td>
+                        <td>6.62</td>
+                        <td>4.29</td>
+                        <td>52.69</td>
+                        <td>HD</td>
+                        <td>Satisfactory</td>
+                    </tr>
+                    <tr>
+                        <td>Sep 29, 2021</td>
+                        <td>Salinas, 93906</td>
+                        <td>28.47</td>
+                        <td>4.51</td>
+                        <td>3.24</td>
+                        <td>50.80</td>
+                        <td>HD</td>
+                        <td>Satisfactory</td>
+                    </tr>
+                    <tr>
+                        <td>Sep 29, 2021</td>
+                        <td>Salinas, 93906</td>
+                        <td>28.72</td>
+                        <td>5.14</td>
+                        <td>4.19</td>
+                        <td>49.87</td>
+                        <td>HD</td>
+                        <td>Satisfactory</td>
+                    </tr>
+
+                    </tbody>
+                </Table>
+            </Row>
+
+        </Container>
     );
 }
 

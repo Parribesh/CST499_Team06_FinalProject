@@ -1,42 +1,40 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import logo from '../logo-big-temp.png';
-import '../App.css';
+import Navbar from 'react-bootstrap/Navbar';
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
 
 function Navigation(props) {
     return (
-        <div className="navigation">
-            <nav class="navbar navbar-expand navbar-dark bg-dark">
-                <div class="container">
-
-                    <div>
-                    <img className="App-logo" alt={logo} src = {logo}/>
-                    <Link class="navbar-brand" to="/" style={{fontSize: "45px"}}> CalSpeed </Link>
-                    </div>
-
-                    <div>
-                        <ul class="navbar-nav ml-auto">
-                            <li class={`nav-item  ${props.location.pathname === "/" ? "active" : ""}`} >
-                                <Link class="nav-link" to="/" style={{fontSize: "25px"}}> Home </Link>
-                            </li>
-
-                            <li className={`nav-item  ${props.location.pathname === "/map" ? "active" : ""}`}>
-                                <Link class="nav-link" to="/map" style={{fontSize: "25px"}}> Map </Link>
-                            </li>
-
-                            <li class={`nav-item  ${props.location.pathname === "/history" ? "active" : ""}`} >
-                                <Link class="nav-link" to="/history" style={{fontSize: "25px"}}> History </Link>
-                            </li>
-
-                            <li class={`nav-item  ${props.location.pathname === "/about" ? "active" : ""}`} >
-                                <Link class="nav-link" to="/about" style={{fontSize: "25px"}}> About </Link>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-            </nav>
-        </div>
+        <Navbar bg="dark" variant={"dark"}>
+            <Container>
+                <Navbar.Brand href={"/"} style={{fontSize: "45px"}}>
+                    <img
+                        alt={logo}
+                        src={logo}
+                        width={100}
+                        height={100}
+                        className={"d-inline-block align-center rounded"}
+                        />{' '}
+                        CalSpeed
+                </Navbar.Brand>
+                <Nav className={"ml-auto"}>
+                    <Nav.Item>
+                        <Nav.Link href={"/"} style={{fontSize: "25px"}}>Home</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link href={"/map"} style={{fontSize: "25px"}}>Map</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link href={"/history"} style={{fontSize: "25px"}}>History</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link href={"/about"} style={{fontSize: "25px"}}>About</Nav.Link>
+                    </Nav.Item>
+                </Nav>
+            </Container>
+        </Navbar>
     );
 }
 
