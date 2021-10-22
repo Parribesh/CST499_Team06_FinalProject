@@ -1,8 +1,24 @@
-import './App.css';
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Navigation, Footer, Home, About, History, Map } from "./components";
+import './App.css';
+var network = require('./networkSim');
 function App() {
+
+  //examples on how to use it
+  //call function whenever you want a value
+  for(let i = 0; i < 10; i++){
+    console.log("Download " + i + " " + network.getDownloadSpeed())
+  }
+  for(let i = 0; i < 10; i++){
+    console.log("Upload " + i + " " + network.getUploadSpeed())
+  }
+  for(let i = 0; i < 10; i++){
+    console.log("Ping " + i + " " + network.getPing())
+  }
+  for(let i = 0; i < 10; i++){
+    console.log("Upload " + i + " " + network.getJitter())
+  }
   return (
 
     <div className="App">
@@ -20,5 +36,7 @@ function App() {
 
   );
 }
+
+
 
 export default App;
