@@ -22,12 +22,10 @@ const center = {
 function Map() {
     return (
         <Container fluid>
-            <Row className={"align-center"}>
-                <Col>
-                    <h1>Map View</h1>
-                </Col>
-            </Row>
             <Row >
+                <h1 className={"text-center"}>Map View</h1>
+            </Row>
+            <Row>
                 <Col>
                     <LoadScript googleMapsApiKey="AIzaSyCL3OMy-DFgOqpdR5DljN-JDzx_O7PCz2k">
                         <GoogleMap
@@ -41,8 +39,8 @@ function Map() {
                     </LoadScript>
                 </Col>
                 <Col>
-                    <Tabs defaultActiveKey="fixedBroadbrand" id="uncontrolled-tab-example" className="mb-3">
-                        <Tab eventKey="fixedBroadbrand" title="Fixed Broadband">
+                    <Tabs defaultActiveKey="fixedBroadbrand" id="uncontrolled-tab-example" className="mb-0 bg-dark">
+                        <Tab eventKey="fixedBroadbrand" title="Fixed Broadband" tabClassName={"text-black bg-light"}>
                             <Table striped bordered hover variant={"dark"}>
                                 <thead>
                                 <tr>
@@ -83,7 +81,7 @@ function Map() {
                                 </tbody>
                             </Table>
                         </Tab>
-                        <Tab eventKey="mobileBroadbrand" title="Mobile Broadband">
+                        <Tab eventKey="mobileBroadbrand" title="Mobile Broadband" tabClassName={"text-black bg-light"}>
                             <Table striped bordered hover variant={"dark"}>
                                 <thead>
                                 <tr>
