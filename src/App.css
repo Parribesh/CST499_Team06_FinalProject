@@ -54,6 +54,10 @@ body {
   background: #59b1e3;
 }
 
+h1{
+  padding:10px;
+}
+
 .center {
   margin: 0;
   position: absolute;
