@@ -18,13 +18,14 @@ function Tester() {
     const [startColor, setStartColor] = useState('#000000');
     const [endColor, setEndColor] = useState('#59b1e3');
     //temporary set max value that can be generated
-    const [maxValue, setMax] = useState([Math.ceil((1000 * speed + 1000 * speed * stab) / 10) * 10]);
+    //const [maxValue, setMax] = useState([Math.ceil((1000 * speed + 1000 * speed * stab) / 10) * 10]);
+    const [maxValue, setMax] = useState(150);
     const [forceRender, changeForce] = useState([false]);
 
     const changeValue = () => {
         const test = network.getDownloadSpeed(speed, stab);
-        console.log("Test value..." + test);
-        console.log("maxValue" + maxValue);
+        //console.log("Test value..." + test);
+        //console.log("maxValue" + maxValue);
         if (test > maxValue) {
             changeForce(true);
             setMax(Math.ceil(test / 10) * 10);
@@ -34,8 +35,8 @@ function Tester() {
     }
     const changeUploadValue = () => {
         const test = network.getUploadSpeed(speed, stab);
-        console.log("Test value..." + test);
-        console.log("maxValue" + maxValue);
+        //console.log("Test value..." + test);
+        //console.log("maxValue" + maxValue);
         if (test > maxValue) {
             changeForce(true);
             setMax(Math.ceil(test / 10) * 10);
@@ -48,7 +49,8 @@ function Tester() {
         var pullRate = 30;
         var space = 200;
         for (var i = 0; i < 50; i++) {
-            setTimeout(() => { changeValue(); }, 200 * i);
+            //setTimeout(() => { changeValue(); }, 200 * i);
+            setTimeout(() => { changeValue(); }, 500 * i);
         }
     }
 
@@ -71,7 +73,7 @@ function Tester() {
         // otherwise they overlap -- Chris
         // TODO: value should reset to 0 after test completes
         setTimeout(() => { startTest(); }, 2000);
-        setTimeout(() => { startUploadTest(); }, 15000);
+        setTimeout(() => { startUploadTest(); }, 28000);
         // TODO: Local vs Distance speed, Jitter, ping tests
     }
     return (
@@ -89,7 +91,7 @@ function Tester() {
                     endColor={endColor}
                     textColor={'#ffffff'}
                     //needleTransitionDuration={100}
-                    needleTransition={"easeElastic"}
+                    needleTransition={"easeBounceIn"}
                 />
             </center>
         </div>
