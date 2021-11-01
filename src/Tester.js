@@ -3,11 +3,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Navigation, Footer, Home, About, History, Map } from "./components";
 import ReactSpeedometer from "react-d3-speedometer";
-import async from "async";
+import FadeIn from 'react-fade-in';
 var network = require('./networkSim');
 
 function Tester() {
-
+    //TODO: clean up code
     //we need to pass something in to tell if it should use low values or high values
     //in the case of low values, it simply needs to be 100
     var speed = .5;
@@ -21,7 +21,7 @@ function Tester() {
     //const [maxValue, setMax] = useState([Math.ceil((1000 * speed + 1000 * speed * stab) / 10) * 10]);
     const [maxValue, setMax] = useState(150);
     const [forceRender, changeForce] = useState([false]);
-
+    const [regionName, setRegion] = useState("California")
     const changeValue = () => {
         const test = network.getDownloadSpeed(speed, stab);
         //console.log("Test value..." + test);
@@ -52,6 +52,8 @@ function Tester() {
             //setTimeout(() => { changeValue(); }, 200 * i);
             setTimeout(() => { changeValue(); }, 500 * i);
         }
+        //reset to 0
+        setTimeout(()=>{setValue(0); }, 25500);
     }
 
     const startUploadTest = () => {
@@ -61,25 +63,35 @@ function Tester() {
         //TODO: Decide on color schemes, this is temp
         setStartColor('#103319');
         setEndColor('#15d445');
-        let space = 1000;
+        let space = 500;
         for(var i = 0; i< 50; i++){
             setTimeout(() => {changeUploadValue();}, space * i);
         }
+        //reset to 0
+        setTimeout(() => {setValue(0);}, 25500)
     }
 
     window.onload = function () {
         // Not the cleanest way of handling this but because our test are running on a timer anyway
         // we can just specify the delay amount so that tests happen one after another
         // otherwise they overlap -- Chris
-        // TODO: value should reset to 0 after test completes
-        setTimeout(() => { startTest(); }, 2000);
-        setTimeout(() => { startUploadTest(); }, 28000);
+        setTimeout(() => { startTest(); }, 1500);
+        // TODO: better transition to upload test
+        setTimeout(() => { startUploadTest(); }, 31000);
         // TODO: Local vs Distance speed, Jitter, ping tests
     }
     return (
+
         <div className="App" className={"center"}>
             <center>
-                <h1> {testName} </h1>
+                <FadeIn>
+                <div className="jumbotron jumbotron-fluid">
+                    <div className="container">
+                        <h1 className="display-4">{testName}</h1>
+                        <p className="lead">Current Testing Region: {regionName}</p>
+                        <hr className="my-4"></hr>
+                    </div>
+                </div>
                 <ReactSpeedometer value={value}
                     minValue={0}
                     maxValue={maxValue}
@@ -90,9 +102,11 @@ function Tester() {
                     startColor={startColor}
                     endColor={endColor}
                     textColor={'#ffffff'}
+                    needleColor={'#ff3814'}
                     //needleTransitionDuration={100}
                     needleTransition={"easeBounceIn"}
                 />
+                </FadeIn>
             </center>
         </div>
     );
