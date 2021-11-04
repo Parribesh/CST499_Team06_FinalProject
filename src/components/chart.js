@@ -4,17 +4,12 @@ import { Line } from "react-chartjs-2";
 
 const Chart = (props) => {
   const label = useRef([]);
-  const data = useRef([]);
-  data.current = [];
   const count = useRef(0);
 
   useEffect(() => {
     count.current = count.current + 1;
     label.current.push(count.current);
-    let temp = props.data;
-    data.current.push(temp);
-    console.log(props.data);
-  }, [props, data]);
+  }, [props]);
 
   return (
     <div>
