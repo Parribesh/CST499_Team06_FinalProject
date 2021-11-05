@@ -20,6 +20,9 @@ const Chart = (props) => {
       scales: {
         yAxes: [
           {
+            grid: {
+              display: false,
+            },
             ticks: {
               suggestedMin: 0,
               suggestedMax: 100,
