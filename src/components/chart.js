@@ -4,19 +4,30 @@ import { Line } from "react-chartjs-2";
 
 const Chart = (props) => {
   const label = useRef([]);
+  const label2 = useRef([]);
   const count = useRef(0);
 
   useEffect(() => {
     count.current = count.current + 1;
     label.current.push(count.current);
+    // label2.current.push(props.data.at(-1) - 25);
   }, [props]);
 
   const options = {
     maintainAspectRatio: false,
+
     plugins: {
+      legend: {
+        display: true,
+        position: "top",
+        labels: {
+          fontColor: "#212A49",
+          fontSize: 20,
+        },
+      },
       title: {
         display: true,
-        text: "You Speed ",
+        text: "Your Speed ",
       },
     },
     scales: {
@@ -25,33 +36,33 @@ const Chart = (props) => {
           display: false,
         },
         ticks: {
-          suggestedMin: 0,
-          suggestedMax: 100,
+          fontColor: "green",
         },
+        min: 0,
+        max: 200,
       },
       x: {
+        title: {
+          display: true,
+          text: "Time In Sec",
+        },
         grid: {
           display: false,
         },
         ticks: {
-          suggestedMin: 0,
-          suggestedMax: 100,
+          fontColor: "green",
+          display: false,
+          stepSize: 10,
         },
       },
     },
   };
 
-  const legend = {
-    display: true,
-    position: "bottom",
-    labels: {
-      fontColor: "#323130",
-      fontSize: 14,
-    },
-  };
+  const legend = {};
 
   const data = {
     labels: label.current,
+    display: false,
     datasets: [
       {
         label: "download Speed",
@@ -63,7 +74,7 @@ const Chart = (props) => {
       },
       {
         label: "Upload Speed",
-        data: [props.data],
+        data: 1,
         fill: false,
         borderColor: "#742774",
       },
