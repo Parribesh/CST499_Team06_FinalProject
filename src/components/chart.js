@@ -14,7 +14,7 @@ const Chart = (props) => {
           label: "Your Download Speed",
           data: props.data,
           backgroundColor: ['rgba(200, 10, 200, 0.7)'],
-          borderWidhth: 4,
+          borderWidth: 4,
         },
       ],
     });

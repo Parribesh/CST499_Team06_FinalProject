@@ -5,6 +5,7 @@ import { Navigation, Footer, Home, About, History, Map, Testing } from "./compon
 import ReactSpeedometer from "react-d3-speedometer";
 import Chart from './components/chart.js'
 import Tester from './Tester'
+import PingJitterTest from "./PingJitterTest";
 var network = require('./networkSim');
 function App() {
 
@@ -56,6 +57,7 @@ function App() {
                 <Route path="/map" exact component={() => <Map />} />
                 {/* <Route path={"/testing"} exact component={() => <Testing/>} /> */}
                 <Route path="/Tester" component={Tester}/>
+                <Route path="/PingJitterTest" component={PingJitterTest}/>
             </Switch>
             <Footer />
         </Router>
