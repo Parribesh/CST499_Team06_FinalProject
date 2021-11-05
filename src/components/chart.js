@@ -11,62 +11,57 @@ const Chart = (props) => {
     label.current.push(count.current);
   }, [props]);
 
-  return (
-    <div>
-      <Line
-        data={{
-          labels: label.current,
-          datasets: [
-            {
-              label: "Your Download Speed",
-              lineTension: 0.5,
-              data: props.data,
-              backgroundColor: ["rgba(255, 0, 0, .7)"],
-              fill: 1,
-              borderColor: [
-                "rgba(255, 90, 132, 0.7)",
-                "rgba(54, 162, 235, 0.3)",
-                "rgba(255, 206, 86, 0.3)",
-                "rgba(75, 192, 192, 1)",
-                "rgba(153, 102, 255, 1)",
-                "rgba(255, 159, 64, 1)",
-              ],
-              borderWidhth: 0.5,
-            },
-          ],
-          options: {
-            plugins: {
-              filler: {
-                propagate: true,
-              },
-            },
-            animation: false,
-            scales: {
-              y: {
-                beginAtZero: true,
-                gridLines: {
-                  drawOnChartArea: false,
-                },
-              },
-              x: [
-                {
-                  type: "time",
-                  gridLines: {
-                    display: false,
-                  },
-                  ticks: {
-                    autoSkip: false,
-                    maxTicksLimit: 50,
-                  },
-                },
-              ],
+  const options = {
+    plugins: {
+      title: {
+        display: true,
+        text: "Chart Title",
+      },
+      scales: {
+        yAxes: [
+          {
+            ticks: {
+              suggestedMin: 0,
+              suggestedMax: 100,
             },
           },
-        }}
-        height={200}
-        width={400}
-        options={{ maintainAspectRatio: false }}
-      />
+        ],
+      },
+    },
+  };
+
+  const legend = {
+    display: true,
+    position: "bottom",
+    labels: {
+      fontColor: "#323130",
+      fontSize: 14,
+    },
+  };
+
+  const data = {
+    labels: label.current,
+    datasets: [
+      {
+        label: "download Speed",
+        lineTension: 0.5,
+        data: props.data,
+        fill: true,
+        backgroundColor: "rgba(255,192,192,0.2)",
+        borderColor: "rgba(255,192,192,1)",
+      },
+      {
+        label: "Upload Speed",
+        data: [props.data],
+        fill: false,
+        borderColor: "#742774",
+      },
+    ],
+  };
+
+  return (
+    <div>
+      <Line data={data} options={options} legend={legend} width={700} />
     </div>
   );
 };
