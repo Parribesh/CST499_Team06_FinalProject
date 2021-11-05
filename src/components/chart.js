@@ -12,23 +12,31 @@ const Chart = (props) => {
   }, [props]);
 
   const options = {
+    maintainAspectRatio: false,
     plugins: {
       title: {
         display: true,
-        text: "Chart Title",
+        text: "You Speed ",
       },
-      scales: {
-        yAxes: [
-          {
-            grid: {
-              display: false,
-            },
-            ticks: {
-              suggestedMin: 0,
-              suggestedMax: 100,
-            },
-          },
-        ],
+    },
+    scales: {
+      y: {
+        grid: {
+          display: false,
+        },
+        ticks: {
+          suggestedMin: 0,
+          suggestedMax: 100,
+        },
+      },
+      x: {
+        grid: {
+          display: false,
+        },
+        ticks: {
+          suggestedMin: 0,
+          suggestedMax: 100,
+        },
       },
     },
   };
