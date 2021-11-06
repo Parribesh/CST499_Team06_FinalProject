@@ -35,7 +35,7 @@ function Tester() {
     }
     changeForce(false);
     setValue(test);
-    data.current.push(test);
+    data.current = [...data.current, test];
   };
   const changeUploadValue = () => {
     const test = network.getUploadSpeed(speed, stab);
