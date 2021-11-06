@@ -10,6 +10,7 @@ const PingJitterChart = (props) => {
   useEffect(() => {
     count.current = count.current + 1;
     label.current.push(count.current);
+    console.log(label.current);
     // label2.current.push(props.data.at(-1) - 25);
   }, [props]);
 
@@ -38,7 +39,7 @@ const PingJitterChart = (props) => {
         ticks: {
           fontColor: "green",
         },
-        min: 100,
+        min: 1,
         max: 500,
       },
       x: {
