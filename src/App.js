@@ -6,9 +6,6 @@ import './App.css';
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
-let network = require('./networkSim');
-
 import ReactSpeedometer from "react-d3-speedometer";
 import Chart from './components/chart.js'
 import Tester from './Tester'
@@ -61,7 +58,6 @@ function App() {
                 <Route path="/about" exact component={() => <About />} />
                 <Route path="/history" exact component={() => <History />} />
                 <Route path="/map" exact component={() => <Map />} />
-                {/* <Route path={"/testing"} exact component={() => <Testing/>} /> */}
                 <Route path="/Tester" component={Tester}/>
             </Switch>
             <Footer />
