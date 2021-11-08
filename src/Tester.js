@@ -1,0 +1,115 @@
+import './App.css';
+import React, { useState, useEffect, useRef } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Navigation, Footer, Home, About, History, Map } from "./components";
+import ReactSpeedometer from "react-d3-speedometer";
+import FadeIn from 'react-fade-in';
+var network = require('./networkSim');
+
+function Tester() {
+    //TODO: clean up code
+    //we need to pass something in to tell if it should use low values or high values
+    //in the case of low values, it simply needs to be 100
+    var speed = .5;
+    var stab = .3;
+
+    const [testName, setName] = useState("Download Test");
+    const [value, setValue] = useState([0]);
+    const [startColor, setStartColor] = useState('#000000');
+    const [endColor, setEndColor] = useState('#59b1e3');
+    //temporary set max value that can be generated
+    //const [maxValue, setMax] = useState([Math.ceil((1000 * speed + 1000 * speed * stab) / 10) * 10]);
+    const [maxValue, setMax] = useState(150);
+    const [forceRender, changeForce] = useState([false]);
+    const [regionName, setRegion] = useState("California")
+    const changeValue = () => {
+        const test = network.getDownloadSpeed(speed, stab);
+        //console.log("Test value..." + test);
+        //console.log("maxValue" + maxValue);
+        if (test > maxValue) {
+            changeForce(true);
+            setMax(Math.ceil(test / 10) * 10);
+        }
+        changeForce(false);
+        setValue(test);
+    }
+    const changeUploadValue = () => {
+        const test = network.getUploadSpeed(speed, stab);
+        //console.log("Test value..." + test);
+        //console.log("maxValue" + maxValue);
+        if (test > maxValue) {
+            changeForce(true);
+            setMax(Math.ceil(test / 10) * 10);
+        }
+        changeForce(false);
+        setValue(test);
+    }
+
+    const startTest = () => {
+        var pullRate = 30;
+        var space = 200;
+        for (var i = 0; i < 50; i++) {
+            //setTimeout(() => { changeValue(); }, 200 * i);
+            setTimeout(() => { changeValue(); }, 500 * i);
+        }
+        //reset to 0
+        setTimeout(()=>{setValue(0); }, 25500);
+    }
+
+    const startUploadTest = () => {
+        setValue(0);
+        setName("Upload Test");
+        changeForce(true);
+        //TODO: Decide on color schemes, this is temp
+        setStartColor('#103319');
+        setEndColor('#15d445');
+        let space = 500;
+        for(var i = 0; i< 50; i++){
+            setTimeout(() => {changeUploadValue();}, space * i);
+        }
+        //reset to 0
+        setTimeout(() => {setValue(0);}, 25500)
+    }
+
+    window.onload = function () {
+        // Not the cleanest way of handling this but because our test are running on a timer anyway
+        // we can just specify the delay amount so that tests happen one after another
+        // otherwise they overlap -- Chris
+        setTimeout(() => { startTest(); }, 1500);
+        // TODO: better transition to upload test
+        setTimeout(() => { startUploadTest(); }, 31000);
+        // TODO: Local vs Distance speed, Jitter, ping tests
+    }
+    return (
+
+        <div className="App" className={"center"}>
+            <center>
+                <FadeIn>
+                <div className="jumbotron jumbotron-fluid">
+                    <div className="container">
+                        <h1 className="display-4">{testName}</h1>
+                        <p className="lead">Current Testing Region: {regionName}</p>
+                        <hr className="my-4"></hr>
+                    </div>
+                </div>
+                <ReactSpeedometer value={value}
+                    minValue={0}
+                    maxValue={maxValue}
+                    forceRender={forceRender}
+                    currentValueText={'${value} Mbps'}
+                    segments={1000}
+                    maxSegmentLabels={10}
+                    startColor={startColor}
+                    endColor={endColor}
+                    textColor={'#ffffff'}
+                    needleColor={'#ff3814'}
+                    //needleTransitionDuration={100}
+                    needleTransition={"easeBounceIn"}
+                />
+                </FadeIn>
+            </center>
+        </div>
+    );
+}
+
+export default Tester

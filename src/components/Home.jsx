@@ -7,7 +7,7 @@ function Home() {
 
     return (
         <Container>
-            <a href={"./Testing"} className={"center"}>
+            <a href={"./Tester"} className={"center"}>
                 <button className={"button"}>
                     Start Test
                 </button>
