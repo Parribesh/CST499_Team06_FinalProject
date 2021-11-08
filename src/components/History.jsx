@@ -9,10 +9,7 @@ function History() {
     return (
         <Container>
             <Row className={"justify-content-center"}>
-                <Col>
-                    <h1>GRAPH</h1>
-                </Col>
-
+                <h1 className={"text-center"}>GRAPH</h1>
             </Row>
             <Row>
                 <Table striped bordered hover variant={"dark"}>

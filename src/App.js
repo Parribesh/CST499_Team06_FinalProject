@@ -2,6 +2,13 @@ import './App.css';
 import React, {useState, useEffect, useRef} from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Navigation, Footer, Home, About, History, Map, Testing } from "./components";
+import './App.css';
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+
+let network = require('./networkSim');
+
 import ReactSpeedometer from "react-d3-speedometer";
 import Chart from './components/chart.js'
 import Tester from './Tester'
@@ -27,7 +34,7 @@ function App() {
   const [value, setValue] = useState([200]);
   const [label, setLabel] = useState([1]);
   const count = useRef(0);
-  
+
   useEffect(() =>{
     count.current = count.current+1;
   })

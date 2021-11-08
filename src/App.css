@@ -2,57 +2,121 @@
 /*  text-align: center;*/
 /*}*/
 
-.App-logo {
-  height: 12vmin;
-  width: 12vmin;
-  pointer-events: none;
+/*.App-logo {*/
+/*  height: 12vmin;*/
+/*  width: 12vmin;*/
+/*  pointer-events: none;*/
+/*}*/
+
+/*.App-header {*/
+/*  background: #59b1e3;*/
+/*  display: flex;*/
+/*  justify-content: left;*/
+/*  color: white;*/
+/*}*/
+
+/*.App-header-text {*/
+/*  font-size: calc(24px + 2vmin);*/
+/*  !*vw and vh are viewport dimensions, this is kinda hacky, I couldn't figure out how to center it better*!*/
+/*  padding-left: 32vw;*/
+/*  padding-top: 2.5vh;*/
+/*}*/
+
+/*.App-link {*/
+/*  color: #61dafb;*/
+/*}*/
+
+/*.start-button {*/
+/*  border-style: double;*/
+/*  border-color: black;*/
+/*  text-align: center;*/
+/*  padding: 200px;*/
+/*}*/
+
+/*.App-nav-links{*/
+/*    text-align: center;*/
+/*}*/
+
+/*.App-nav-links-text{*/
+/*  display: inline-block;*/
+/*  padding: 8.5vh;*/
+/*  font-size: 24px;*/
+/*  width: 10%;*/
+/*}*/
+
+/*.App-nav-links-text:hover{*/
+/*  color: black;*/
+/*  transform: scale(1.5);*/
+/*}*/
+
+.footerLink {
+  color: gray;
 }
 
-.App-header {
-  background: #59b1e3;
-  display: flex;
-  justify-content: left;
+.footerLink:hover {
+  color: lightgray;
+}
+
+html, body {
   color: white;
+  height: 100%;
+  min-height: 100%;
+  background: #59b1e3;
+}
+.min-100 {
+  min-height: 100%;
 }
 
-.App-header-text {
-  font-size: calc(24px + 2vmin);
-  /*vw and vh are viewport dimensions, this is kinda hacky, I couldn't figure out how to center it better*/
-  padding-left: 32vw;
-  padding-top: 2.5vh;
+#root {
+  height: 100%;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-.start-button {
-  border-style: double;
-  border-color: black;
+td {
   text-align: center;
-  padding: 200px;
 }
 
-.App-nav-links{
-    text-align: center;
+th {
+  text-align: center;
+}
+.box {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+.searchBar {
+  position: absolute;
+  /*top: 1rem;*/
+  /*left: 3rem;*/
+  z-index: 10;
+  margin-left: 50px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 300px;
+  /*padding: 0;*/
 }
 
-.App-nav-links-text{
-  display: inline-block;
-  padding: 8.5vh;
-  font-size: 24px;
-  width: 10%;
+.searchBar input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
 }
 
-.App-nav-links-text:hover{
-  color: black;
-  transform: scale(1.5);
+.header {
+  flex: 0 1 auto;
 }
 
-body {
-  color: white;
-  background: #59b1e3;
+.content {
+  flex: 1 1 auto;
 }
+
+.footer {
+  flex: 0 1 40px;
+}
+
+.text-responsive {
+  font-size: calc(20% + 1vw + 1vh);
+}
+
 
 h1{
   padding:10px;
