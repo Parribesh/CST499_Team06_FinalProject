@@ -69,7 +69,7 @@ module.exports = {
       speed = .2
     }
 
-    var startSpeed = 300
+    var startSpeed = 50;
 
     var min = startSpeed * speed;
     min -= min * stability
