@@ -60,7 +60,15 @@
 html, body {
   color: white;
   height: 100%;
+  min-height: 100%;
   background: #59b1e3;
+}
+.min-100 {
+  min-height: 100%;
+}
+
+#root {
+  height: 100%;
 }
 
 td {
@@ -70,10 +78,45 @@ td {
 th {
   text-align: center;
 }
+.box {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+.searchBar {
+  position: absolute;
+  /*top: 1rem;*/
+  /*left: 3rem;*/
+  z-index: 10;
+  margin-left: 50px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 300px;
+  /*padding: 0;*/
+}
+
+.searchBar input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.header {
+  flex: 0 1 auto;
+}
+
+.content {
+  flex: 1 1 auto;
+}
+
+.footer {
+  flex: 0 1 40px;
+}
 
 .text-responsive {
   font-size: calc(20% + 1vw + 1vh);
 }
+
 
 .center {
   margin: 0;

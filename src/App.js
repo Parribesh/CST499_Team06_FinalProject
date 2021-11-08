@@ -2,6 +2,9 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Navigation, Footer, Home, About, History, Map, Testing } from "./components";
 import './App.css';
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 let network = require('./networkSim');
 
@@ -31,7 +34,7 @@ function App() {
                 <Route path="/about" exact component={() => <About />} />
                 <Route path="/history" exact component={() => <History />} />
                 <Route path="/map" exact component={() => <Map />} />
-                <Route path={"/testing"} exact component={() => <Testing/>} />
+                <Route path={"/testing"} exact component={() => <Testing />} />
             </Switch>
             <Footer />
         </Router>
