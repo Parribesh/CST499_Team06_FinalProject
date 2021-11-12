@@ -1,11 +1,10 @@
 import "./App.css";
-import React, { useState, useEffect, useRef } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Navigation, Footer, Home, About, History, Map } from "./components";
+import React, { useState, useRef } from "react";
 import ReactSpeedometer from "react-d3-speedometer";
 import FadeIn from "react-fade-in";
 
 import Chart from "./components/chart";
+import { Button, FormLabel } from "react-bootstrap";
 var network = require("./networkSim");
 
 function Tester() {
@@ -17,7 +16,10 @@ function Tester() {
 
   const [testName, setName] = useState("Download Test");
   const [value, setValue] = useState([0]);
-  const data = useRef([]); //Paribesh
+  const dataDown = useRef([]); //Paribesh
+  const dataUp = useRef([]);
+  const data = useRef([]);
+  const isDone = useRef(false);
   const [startColor, setStartColor] = useState("#000000");
   const [endColor, setEndColor] = useState("#59b1e3");
   //temporary set max value that can be generated
@@ -25,6 +27,7 @@ function Tester() {
   const [maxValue, setMax] = useState(150);
   const [forceRender, changeForce] = useState([false]);
   const [regionName, setRegion] = useState("California");
+
   const changeValue = () => {
     const test = network.getDownloadSpeed(speed, stab);
     //console.log("Test value..." + test);
@@ -35,8 +38,10 @@ function Tester() {
     }
     changeForce(false);
     setValue(test);
-    data.current = [...data.current, test];
+    dataDown.current = [...dataDown.current, test];
+    data.current = [...dataDown.current];
   };
+
   const changeUploadValue = () => {
     const test = network.getUploadSpeed(speed, stab);
     //console.log("Test value..." + test);
@@ -47,11 +52,11 @@ function Tester() {
     }
     changeForce(false);
     setValue(test);
+    dataUp.current = [...dataUp.current, test];
+    data.current = [...dataUp.current];
   };
 
   const startTest = () => {
-    var pullRate = 30;
-    var space = 200;
     for (var i = 0; i < 50; i++) {
       //setTimeout(() => { changeValue(); }, 200 * i);
       setTimeout(() => {
@@ -91,11 +96,15 @@ function Tester() {
       startTest();
     }, 1500);
     // TODO: better transition to upload test
+    data.current = [];
+
     setTimeout(() => {
+      isDone.current = true;
       startUploadTest();
     }, 31000);
     // TODO: Local vs Distance speed, Jitter, ping tests
   };
+
   return (
     <div className="App" className={"center"}>
       <center>
@@ -122,7 +131,11 @@ function Tester() {
             //needleTransitionDuration={100}
             needleTransition={"easeBounceIn"}
           />
-          <Chart data={data.current} />
+          <Chart
+            data={data.current}
+            isDone={isDone.current}
+            isHistory={false}
+          />
         </FadeIn>
       </center>
     </div>
