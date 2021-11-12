@@ -27,6 +27,8 @@ function Tester() {
   const [maxValue, setMax] = useState(150);
   const [forceRender, changeForce] = useState([false]);
   const [regionName, setRegion] = useState("California");
+  let avgDown = 0;
+  let avgUp = 0;
 
   const changeValue = () => {
     const test = network.getDownloadSpeed(speed, stab);
@@ -40,6 +42,7 @@ function Tester() {
     setValue(test);
     dataDown.current = [...dataDown.current, test];
     data.current = [...dataDown.current];
+    avgDown += test;
   };
 
   const changeUploadValue = () => {
@@ -54,6 +57,8 @@ function Tester() {
     setValue(test);
     dataUp.current = [...dataUp.current, test];
     data.current = [...dataUp.current];
+    avgUp += test;
+    console.log(data.current);
   };
 
   const startTest = () => {
@@ -66,6 +71,21 @@ function Tester() {
     //reset to 0
     setTimeout(() => {
       setValue(0);
+      //Check if the session item is empty
+      if(sessionStorage.getItem('avgDown') != null){
+        //JSON.parse lets us pull the values out as whatever type
+        //We store it as an array so it'll always be an array
+        let currentValues = JSON.parse(sessionStorage.getItem('avgDown'));
+        currentValues.push(Math.floor(avgDown/data.current.length));
+        //JSON.stringify spits it back out as a string for sessionStorage
+        sessionStorage.avgDown = JSON.stringify(currentValues);
+
+      }else{
+        //Make it an array before you add it to sessionStorage
+        let currentValues = [];
+        currentValues.push(Math.floor(avgDown/data.current.length));
+        sessionStorage.avgDown = JSON.stringify(currentValues);
+      }
     }, 25500);
   };
 
@@ -85,6 +105,16 @@ function Tester() {
     //reset to 0
     setTimeout(() => {
       setValue(0);
+      if(sessionStorage.getItem('avgUp') != null){
+        let currentValues =  JSON.parse(sessionStorage.getItem('avgUp'));
+        currentValues.push(Math.floor(avgUp/data.current.length));
+        sessionStorage.avgUp = JSON.stringify(currentValues);
+
+      }else{
+        let currentValues = [];
+        currentValues.push(Math.floor(avgUp/data.current.length));
+        sessionStorage.avgUp = JSON.stringify(currentValues);
+      }
     }, 25500);
   };
 
