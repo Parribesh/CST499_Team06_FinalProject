@@ -11,16 +11,16 @@ function App() {
   //examples on how to use it
   //call function whenever you want a value
   for(let i = 0; i < 10; i++){
-    console.log("Download " + i + " " + network.getDownloadSpeed())
+    //console.log("Download " + i + " " + network.getDownloadSpeed())
   }
   for(let i = 0; i < 10; i++){
-    console.log("Upload " + i + " " + network.getUploadSpeed())
+    //console.log("Upload " + i + " " + network.getUploadSpeed())
   }
   for(let i = 0; i < 10; i++){
-    console.log("Ping " + i + " " + network.getPing())
+    //console.log("Ping " + i + " " + network.getPing())
   }
   for(let i = 0; i < 10; i++){
-    console.log("Upload " + i + " " + network.getJitter())
+    //console.log("Upload " + i + " " + network.getJitter())
   }
 
   const [data, setData] = useState([32]);
@@ -33,14 +33,14 @@ function App() {
   })
   const changeData = () => {
     const rand = Math.ceil(Math.random() * 35);
-    console.log(rand);
+    //console.log(rand);
     setData([...data, rand]);
     setLabel([...label, count.current])
   }
 
   const changeValue = () => {
       const test = Math.ceil(Math.random() * 45);
-      console.log("Test value..." + test);
+      //console.log("Test value..." + test);
       setValue(Number(test))
   }
 

@@ -79,12 +79,19 @@ function Tester() {
         currentValues.push(Math.floor(avgDown/data.current.length));
         //JSON.stringify spits it back out as a string for sessionStorage
         sessionStorage.avgDown = JSON.stringify(currentValues);
+        //Throw a dummy value into avgUp to make it easier to display results
+        let old_values = JSON.parse(sessionStorage.getItem('avgUp'));
+        old_values.push('');
+        sessionStorage.avgUp = JSON.stringify(old_values);
 
       }else{
         //Make it an array before you add it to sessionStorage
         let currentValues = [];
         currentValues.push(Math.floor(avgDown/data.current.length));
         sessionStorage.avgDown = JSON.stringify(currentValues);
+        //We're gonna just throw a dummy value into avgUp as well to make it easier to display results
+        let dummyValues = [''];
+        sessionStorage.avgUp = JSON.stringify(dummyValues);
       }
     }, 25500);
   };
@@ -105,9 +112,12 @@ function Tester() {
     //reset to 0
     setTimeout(() => {
       setValue(0);
-      if(sessionStorage.getItem('avgUp') != null){
+      if(JSON.parse(sessionStorage.getItem('avgUp')).length > 0){
         let currentValues =  JSON.parse(sessionStorage.getItem('avgUp'));
-        currentValues.push(Math.floor(avgUp/data.current.length));
+        //if(currentValues.get(currentValues.length) === null){
+        currentValues[currentValues.length - 1] = Math.floor(avgUp/data.current.length);
+        //}
+        //currentValues.push(Math.floor(avgUp/data.current.length));
         sessionStorage.avgUp = JSON.stringify(currentValues);
 
       }else{
