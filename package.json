@@ -7,8 +7,9 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
-    "chart.js": "3.0.0",
+    "chart.js": "^3.6.0",
     "export": "^0.1.337",
+    "json-to-table": "^4.2.1",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.4",
     "react-chartjs-2": "^3.3.0",
@@ -43,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "html-tablify": "^2.0.2"
   }
 }
