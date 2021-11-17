@@ -74,10 +74,9 @@ function Map() {
     if (!isLoaded) return "Loading Maps";
 
     return (
-        <Container fluid className={"d-flex flex-column"}>
-            <Row className={"my-3"}>
+        <Container fluid>
+            <Row className={'test py-3'}>
                 <Col>
-
                     <div className={"searchBar"}><MapSearchBar panTo={panTo}/></div>
                     <GoogleMap
                         mapContainerStyle={mapContainerStyle}
@@ -109,50 +108,10 @@ function Map() {
                 </Col>
 
                 <Col>
-                    <Tabs defaultActiveKey="fixedBroadbrand" id="uncontrolled-tab-example" className="mb-0 bg-dark">
-                        <Tab eventKey="fixedBroadbrand" title="Fixed Broadband" tabClassName={"text-black bg-light"}>
-                            <Table striped bordered hover variant={"dark"}>
-                                <thead>
-                                <tr>
-                                    <th>ISP</th>
-                                    <th>Connection Type</th>
-                                    <th>Download (mbps)</th>
-                                    <th>Upload (mbps)</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>AT&T California</td>
-                                    <td>ADSL2, ADSL2+</td>
-                                    <td>10-25</td>
-                                    <td>.75-1.5</td>
-
-                                </tr>
-                                <tr>
-                                    <td>AT&T California</td>
-                                    <td>Asymmetric xDSL</td>
-                                    <td>6-10</td>
-                                    <td>.2-.75</td>
-                                </tr>
-                                <tr>
-                                    <td>AT&T California</td>
-                                    <td>VDSL</td>
-                                    <td>50-100</td>
-                                    <td>10-25</td>
-                                </tr>
-                                <tr>
-                                    <td>Comcast</td>
-                                    <td>Cable Modem DOCSIS 3.1</td>
-                                    <td>100-1000</td>
-                                    <td>25-50</td>
-                                </tr>
-
-                                </tbody>
-                            </Table>
-                        </Tab>
-                        <Tab eventKey="mobileBroadbrand" title="Mobile Broadband" tabClassName={"text-black bg-light"}>
-                            <Table striped bordered hover variant={"dark"}>
+                    <h1 className={'text-center'}>ISP Comparisons</h1>
+                    <Tabs defaultActiveKey="mobileBroadbrand" className="bg-light">
+                        <Tab eventKey="mobileBroadbrand" title="Mobile Broadband" >
+                            <Table striped bordered hover variant={"light"}>
                                 <thead>
                                 <tr>
                                     <th>ISP</th>
@@ -230,6 +189,47 @@ function Map() {
                                     <td>3-6</td>
                                     <td>1.5-3</td>
                                 </tr>
+                                </tbody>
+                            </Table>
+                        </Tab>
+                        <Tab eventKey="fixedBroadbrand" title="Fixed Broadband">
+                            <Table striped bordered hover variant={"light"}>
+                                <thead>
+                                <tr>
+                                    <th>ISP</th>
+                                    <th>Connection Type</th>
+                                    <th>Download (mbps)</th>
+                                    <th>Upload (mbps)</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>AT&T California</td>
+                                    <td>ADSL2, ADSL2+</td>
+                                    <td>10-25</td>
+                                    <td>.75-1.5</td>
+
+                                </tr>
+                                <tr>
+                                    <td>AT&T California</td>
+                                    <td>Asymmetric xDSL</td>
+                                    <td>6-10</td>
+                                    <td>.2-.75</td>
+                                </tr>
+                                <tr>
+                                    <td>AT&T California</td>
+                                    <td>VDSL</td>
+                                    <td>50-100</td>
+                                    <td>10-25</td>
+                                </tr>
+                                <tr>
+                                    <td>Comcast</td>
+                                    <td>Cable Modem DOCSIS 3.1</td>
+                                    <td>100-1000</td>
+                                    <td>25-50</td>
+                                </tr>
+
                                 </tbody>
                             </Table>
                         </Tab>

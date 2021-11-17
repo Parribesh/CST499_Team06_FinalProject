@@ -60,7 +60,6 @@ function App() {
                 <Route path="/map" exact component={() => <Map />} />
                 <Route path="/Tester" component={Tester}/>
             </Switch>
-            <Footer />
         </Router>
     </div>
 
