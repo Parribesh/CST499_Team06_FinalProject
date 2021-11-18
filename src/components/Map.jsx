@@ -1,14 +1,15 @@
 import React from "react";
-import { GoogleMap, LoadScript} from '@react-google-maps/api';
+import {GoogleMap, LoadScript, useLoadScript, Marker, InfoWindow} from '@react-google-maps/api';
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from 'react-bootstrap/Table';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
+import MapSearchBar from './MapSearchBar'
 
 
-const containerStyle = {
+const mapContainerStyle = {
     position: 'fixed',
     width: '100%',
     height: '100%'
@@ -19,72 +20,98 @@ const center = {
     lng: -121.7978
 };
 
+const libraries = ["places"]
+const options = {
+    disableDefaultUI: true,
+    zoomControl: true,
+}
+
+
+
 function Map() {
+    const {isLoaded, loadError} = useLoadScript({
+        googleMapsApiKey: "AIzaSyCL3OMy-DFgOqpdR5DljN-JDzx_O7PCz2k",
+        libraries,
+
+    });
+
+    const [markers, setMarkers] = React.useState([]);
+    const [selected, setSelected] = React.useState(null);
+
+    const onMapClick = React.useCallback((event) => {
+        setMarkers(current => [
+            // ...current,
+            {
+                lat: event.latLng.lat(),
+                lng: event.latLng.lng(),
+                time: new Date()
+            },
+        ]);
+    }, []);
+
+    const mapRef = React.useRef();
+
+    const onMapLoad = React.useCallback((map) => {
+        mapRef.current = map;
+    }, []);
+
+    const panTo = React.useCallback((lat, lng) => {
+        mapRef.current.panTo({lat, lng});
+        mapRef.current.setZoom(11);
+
+        setMarkers(current => [
+            {
+                lat: lat,
+                lng: lng,
+                time: new Date(),
+                // infoText: "Coordinates:\n" + "Lat: " + lat + " " + "Long: " + lng
+            },
+        ]);
+    }, []);
+
+
+    if (loadError) return "Error loading maps";
+    if (!isLoaded) return "Loading Maps";
+
     return (
         <Container fluid>
-            <Row className={"align-center"}>
+            <Row className={'test py-3'}>
                 <Col>
-                    <h1>Map View</h1>
+                    <div className={"searchBar"}><MapSearchBar panTo={panTo}/></div>
+                    <GoogleMap
+                        mapContainerStyle={mapContainerStyle}
+                        center={center}
+                        zoom={7}
+                        options={options}
+                        onClick={onMapClick}
+                        onLoad={onMapLoad}
+
+                    >
+                        {markers.map(marker => (
+                            <Marker
+                                key={marker.time.toISOString()}
+                                position={{lat: marker.lat, lng: marker.lng}}
+                                onClick={() => {
+                                    setSelected(marker);
+                                }}
+                                onLoad={() => {
+                                    setSelected(marker);
+                                }}
+                            >
+                                <InfoWindow position={{ lat: marker.lat, lng: marker.lng }}><div className={"my-1"} style={{color: "black"}}>Lat: {marker.lat}<br/>Long: {marker.lng}</div></InfoWindow>
+                            </Marker>
+                        ))}
+
+                        {/*{selected? <InfoWindow position={{ lat: selected.lat, lng: selected.lng }}><div>Testing</div></InfoWindow> : null}*/}
+
+                    </GoogleMap>
                 </Col>
-            </Row>
-            <Row >
+
                 <Col>
-                    <LoadScript googleMapsApiKey="AIzaSyCL3OMy-DFgOqpdR5DljN-JDzx_O7PCz2k">
-                        <GoogleMap
-                            mapContainerStyle={containerStyle}
-                            center={center}
-                            zoom={7}
-                        >
-                            { /* Child components, such as markers, info windows, etc. */ }
-                            <></>
-                        </GoogleMap>
-                    </LoadScript>
-                </Col>
-                <Col>
-                    <Tabs defaultActiveKey="fixedBroadbrand" id="uncontrolled-tab-example" className="mb-3">
-                        <Tab eventKey="fixedBroadbrand" title="Fixed Broadband">
-                            <Table striped bordered hover variant={"dark"}>
-                                <thead>
-                                <tr>
-                                    <th>ISP</th>
-                                    <th>Connection Type</th>
-                                    <th>Download (mbps)</th>
-                                    <th>Upload (mbps)</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>AT&T California</td>
-                                    <td>ADSL2, ADSL2+</td>
-                                    <td>10-25</td>
-                                    <td>.75-1.5</td>
-
-                                </tr>
-                                <tr>
-                                    <td>AT&T California</td>
-                                    <td>Asymmetric xDSL</td>
-                                    <td>6-10</td>
-                                    <td>.2-.75</td>
-                                </tr>
-                                <tr>
-                                    <td>AT&T California</td>
-                                    <td>VDSL</td>
-                                    <td>50-100</td>
-                                    <td>10-25</td>
-                                </tr>
-                                <tr>
-                                    <td>Comcast</td>
-                                    <td>Cable Modem DOCSIS 3.1</td>
-                                    <td>100-1000</td>
-                                    <td>25-50</td>
-                                </tr>
-
-                                </tbody>
-                            </Table>
-                        </Tab>
-                        <Tab eventKey="mobileBroadbrand" title="Mobile Broadband">
-                            <Table striped bordered hover variant={"dark"}>
+                    <h1 className={'text-center'}>ISP Comparisons</h1>
+                    <Tabs defaultActiveKey="mobileBroadbrand" className="bg-light">
+                        <Tab eventKey="mobileBroadbrand" title="Mobile Broadband" >
+                            <Table striped bordered hover variant={"light"}>
                                 <thead>
                                 <tr>
                                     <th>ISP</th>
@@ -165,8 +192,48 @@ function Map() {
                                 </tbody>
                             </Table>
                         </Tab>
-                    </Tabs>
+                        <Tab eventKey="fixedBroadbrand" title="Fixed Broadband">
+                            <Table striped bordered hover variant={"light"}>
+                                <thead>
+                                <tr>
+                                    <th>ISP</th>
+                                    <th>Connection Type</th>
+                                    <th>Download (mbps)</th>
+                                    <th>Upload (mbps)</th>
 
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>AT&T California</td>
+                                    <td>ADSL2, ADSL2+</td>
+                                    <td>10-25</td>
+                                    <td>.75-1.5</td>
+
+                                </tr>
+                                <tr>
+                                    <td>AT&T California</td>
+                                    <td>Asymmetric xDSL</td>
+                                    <td>6-10</td>
+                                    <td>.2-.75</td>
+                                </tr>
+                                <tr>
+                                    <td>AT&T California</td>
+                                    <td>VDSL</td>
+                                    <td>50-100</td>
+                                    <td>10-25</td>
+                                </tr>
+                                <tr>
+                                    <td>Comcast</td>
+                                    <td>Cable Modem DOCSIS 3.1</td>
+                                    <td>100-1000</td>
+                                    <td>25-50</td>
+                                </tr>
+
+                                </tbody>
+                            </Table>
+                        </Tab>
+                    </Tabs>
                 </Col>
             </Row>
         </Container>

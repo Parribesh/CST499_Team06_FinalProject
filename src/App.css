@@ -1,61 +1,62 @@
-/*.App {*/
-/*  text-align: center;*/
-/*}*/
-
-.App-logo {
-  height: 12vmin;
-  width: 12vmin;
-  pointer-events: none;
+.footerLink {
+  color: gray;
 }
 
-.App-header {
-  background: #59b1e3;
-  display: flex;
-  justify-content: left;
+.footerLink:hover {
+  color: lightgray;
+}
+
+html, body {
   color: white;
+  height: 100%;
+  min-height: 100%;
+  background: #59b1e3;
 }
 
-.App-header-text {
-  font-size: calc(24px + 2vmin);
-  /*vw and vh are viewport dimensions, this is kinda hacky, I couldn't figure out how to center it better*/
-  padding-left: 32vw;
-  padding-top: 2.5vh;
+#root {
+  height: 100%;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-.start-button {
-  border-style: double;
-  border-color: black;
+td {
   text-align: center;
-  padding: 200px;
 }
 
-.App-nav-links{
-    text-align: center;
+th {
+  text-align: center;
 }
 
-.App-nav-links-text{
-  display: inline-block;
-  padding: 8.5vh;
-  font-size: 24px;
-  width: 10%;
+tr {
+  /*line-height: 40px;*/
+  /*min-height: 30px;*/
+  /*height: 30px;*/
 }
 
-.App-nav-links-text:hover{
-  color: black;
-  transform: scale(1.5);
+.searchBar {
+  position: absolute;
+  /*top: 1rem;*/
+  /*left: 3rem;*/
+  z-index: 10;
+  margin-left: 50px;
+  margin-top: 20px;
+  width: 100%;
+  max-width: 300px;
+  /*padding: 0;*/
 }
 
-body {
-  color: white;
-  background: #59b1e3;
+.searchBar input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
 }
 
-h1{
-  padding:10px;
+.text-responsive {
+  font-size: calc(20% + 1vw + 1vh);
+}
+
+.test {
+  position: fixed;
+  width: 100%;
+  height: calc(100% - 110px);
 }
 
 .center {
