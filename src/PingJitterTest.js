@@ -8,41 +8,110 @@ var network = require("./networkSim");
 function PingJitterTest() {
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from#using_arrow_functions_and_array.from
   //const labels = Array.from({length: 31}, (v, i) => i);
+  const pingData = useRef([]);
+  const jitterData = useRef([]);
   const data = useRef([]);
+  const isDone = useRef(false);
   const [update, forceUpdate] = useState();
   const [currentAvg, updateAvg] = useState(0);
   const [currentStatus, updateStatus] = useState("Current Avg. ")
+  const [testType, updateTest] = useState("Ping ");
+  const [region, updateRegion] = useState("California");
   let runningTotal = 0;
   const changeValue = () => {
     const test = network.getPing(0.1, 0.8);
-    data.current = [...data.current, test];
+    //data.current = [...data.current, test];
+    //jitterData.current = [...jitterData.current, test];
+    //data.current = [...jitterData.current];
+    pingData.current = [...pingData.current, test];
+    data.current = [...pingData.current];
     runningTotal += test;
-    updateAvg(Math.floor(runningTotal/data.current.length));
+    updateAvg(Math.floor(runningTotal/pingData.current.length));
     console.log(currentAvg);
     //test changes each time changeValue is run
     //this will force a re-render every time data is updated
     forceUpdate(test);
     // console.log(test);
   };
+
+  const jitterChangeValue = () =>{
+    const test = network.getJitter(0.1, 0.8);
+    jitterData.current = [...jitterData.current, test];
+    data.current = [...jitterData.current];
+    runningTotal += test;
+    updateAvg(Math.floor(runningTotal/jitterData.current.length));
+    forceUpdate(test);
+  }
   const startTest = () => {
     //data.current.length = 0;
     var pullRate = 30;
     var space = 200;
-    for (var i = 0; i <= 30; i++) {
+    for (var i = 0; i < 30; i++) {
       //setTimeout(() => { changeValue(); }, 200 * i);
       setTimeout(() => {
         changeValue();
       }, 1000 * i);
     }
+    setTimeout(()=>{
+      if(sessionStorage.getItem('avgPing') != null){
+        //JSON.parse lets us pull the values out as whatever type
+        //We store it as an array so it'll always be an array
+        let currentValues = JSON.parse(sessionStorage.getItem('avgPing'));
+        currentValues.push(Math.floor(runningTotal/pingData.current.length));
+        //JSON.stringify spits it back out as a string for sessionStorage
+        sessionStorage.avgPing = JSON.stringify(currentValues);
+        //Throw a dummy value into avgUp to make it easier to display results
+        let old_values = JSON.parse(sessionStorage.getItem('avgJitter'));
+        old_values.push('');
+        sessionStorage.avgJitter = JSON.stringify(old_values);
+
+      }else{
+        //Make it an array before you add it to sessionStorage
+        let currentValues = [];
+        currentValues.push(Math.floor(runningTotal/pingData.current.length));
+        sessionStorage.avgPing = JSON.stringify(currentValues);
+        //We're gonna just throw a dummy value into avgUp as well to make it easier to display results
+        let dummyValues = [''];
+        sessionStorage.avgJitter = JSON.stringify(dummyValues);
+      }
+    }, 30500);
   };
+
+  const startJitterTest = () => {
+    updateTest("Jitter ");
+    for (var i = 0; i< 30; i++){
+      setTimeout(() => {
+        jitterChangeValue();
+      }, 1000 * i);
+    }
+    setTimeout(()=>{
+      if(JSON.parse(sessionStorage.getItem('avgJitter')).length > 0){
+        let currentValues =  JSON.parse(sessionStorage.getItem('avgJitter'));
+        //if(currentValues.get(currentValues.length) === null){
+        currentValues[currentValues.length - 1] = Math.floor(runningTotal/jitterData.current.length);
+        //}
+        //currentValues.push(Math.floor(avgUp/data.current.length));
+        sessionStorage.avgJitter = JSON.stringify(currentValues);
+
+      }else{
+        let currentValues = [];
+        currentValues.push(Math.floor(runningTotal/jitterData.current.length));
+        sessionStorage.avgJitter = JSON.stringify(currentValues);
+      }
+    }, 30500);
+  }
 
   window.onload = function(){
     setTimeout(() => {
       startTest();
     }, 1500);
+    data.current = [];
     setTimeout( () => {
-      updateStatus('Final Avg. ');
-    }, 32000)
+      isDone.current = true;
+      runningTotal = 0;
+      updateAvg(0);
+      startJitterTest();
+    }, 35000)
   }
   useEffect(() => {
 
@@ -54,13 +123,13 @@ function PingJitterTest() {
         <FadeIn>
           <div className="jumbotron jumbotron-fluid">
             <div className="container">
-              <h1 className="display-4">Ping Test</h1>
-              <p className="lead">Current Testing Region: California</p>
+              <h1 className="display-4">{testType} Test</h1>
+              <p className="lead">Current Testing Region: {region}</p>
               <hr className="my-4"></hr>
             </div>
           </div>
-          <PingJitterChart data={data.current}></PingJitterChart>
-          <p className="lead">{currentStatus} Ping: {currentAvg} ms</p>
+          <PingJitterChart data={data.current} isDone={isDone.current}></PingJitterChart>
+          <p className="lead">Average Speed: {currentAvg} ms</p>
         </FadeIn>
       </center>
     </div>
