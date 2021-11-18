@@ -76,7 +76,7 @@ function Tester() {
         //JSON.parse lets us pull the values out as whatever type
         //We store it as an array so it'll always be an array
         let currentValues = JSON.parse(sessionStorage.getItem('avgDown'));
-        currentValues.push(Math.floor(avgDown/data.current.length));
+        currentValues.push(Math.floor(avgDown/dataDown.current.length));
         //JSON.stringify spits it back out as a string for sessionStorage
         sessionStorage.avgDown = JSON.stringify(currentValues);
         //Throw a dummy value into avgUp to make it easier to display results
@@ -87,7 +87,7 @@ function Tester() {
       }else{
         //Make it an array before you add it to sessionStorage
         let currentValues = [];
-        currentValues.push(Math.floor(avgDown/data.current.length));
+        currentValues.push(Math.floor(avgDown/dataDown.current.length));
         sessionStorage.avgDown = JSON.stringify(currentValues);
         //We're gonna just throw a dummy value into avgUp as well to make it easier to display results
         let dummyValues = [''];
@@ -115,14 +115,14 @@ function Tester() {
       if(JSON.parse(sessionStorage.getItem('avgUp')).length > 0){
         let currentValues =  JSON.parse(sessionStorage.getItem('avgUp'));
         //if(currentValues.get(currentValues.length) === null){
-        currentValues[currentValues.length - 1] = Math.floor(avgUp/data.current.length);
+        currentValues[currentValues.length - 1] = Math.floor(avgUp/dataUp.current.length);
         //}
         //currentValues.push(Math.floor(avgUp/data.current.length));
         sessionStorage.avgUp = JSON.stringify(currentValues);
 
       }else{
         let currentValues = [];
-        currentValues.push(Math.floor(avgUp/data.current.length));
+        currentValues.push(Math.floor(avgUp/dataUp.current.length));
         sessionStorage.avgUp = JSON.stringify(currentValues);
       }
     }, 25500);
