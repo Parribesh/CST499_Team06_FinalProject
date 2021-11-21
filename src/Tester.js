@@ -72,25 +72,24 @@ function Tester() {
     setTimeout(() => {
       setValue(0);
       //Check if the session item is empty
-      if(sessionStorage.getItem('avgDown') != null){
+      if (sessionStorage.getItem("avgDown") != null) {
         //JSON.parse lets us pull the values out as whatever type
         //We store it as an array so it'll always be an array
-        let currentValues = JSON.parse(sessionStorage.getItem('avgDown'));
-        currentValues.push(Math.floor(avgDown/data.current.length));
+        let currentValues = JSON.parse(sessionStorage.getItem("avgDown"));
+        currentValues.push(Math.floor(avgDown / data.current.length));
         //JSON.stringify spits it back out as a string for sessionStorage
         sessionStorage.avgDown = JSON.stringify(currentValues);
         //Throw a dummy value into avgUp to make it easier to display results
-        let old_values = JSON.parse(sessionStorage.getItem('avgUp'));
-        old_values.push('');
+        let old_values = JSON.parse(sessionStorage.getItem("avgUp"));
+        old_values.push("");
         sessionStorage.avgUp = JSON.stringify(old_values);
-
-      }else{
+      } else {
         //Make it an array before you add it to sessionStorage
         let currentValues = [];
-        currentValues.push(Math.floor(avgDown/data.current.length));
+        currentValues.push(Math.floor(avgDown / data.current.length));
         sessionStorage.avgDown = JSON.stringify(currentValues);
         //We're gonna just throw a dummy value into avgUp as well to make it easier to display results
-        let dummyValues = [''];
+        let dummyValues = [""];
         sessionStorage.avgUp = JSON.stringify(dummyValues);
       }
     }, 25500);
@@ -102,6 +101,8 @@ function Tester() {
     changeForce(true);
     //TODO: Decide on color schemes, this is temp
     setStartColor("#103319");
+    //re-initialized data.current to empty array.
+    data.current = [];
     setEndColor("#15d445");
     let space = 500;
     for (var i = 0; i < 50; i++) {
@@ -112,17 +113,18 @@ function Tester() {
     //reset to 0
     setTimeout(() => {
       setValue(0);
-      if(JSON.parse(sessionStorage.getItem('avgUp')).length > 0){
-        let currentValues =  JSON.parse(sessionStorage.getItem('avgUp'));
+      if (JSON.parse(sessionStorage.getItem("avgUp")).length > 0) {
+        let currentValues = JSON.parse(sessionStorage.getItem("avgUp"));
         //if(currentValues.get(currentValues.length) === null){
-        currentValues[currentValues.length - 1] = Math.floor(avgUp/data.current.length);
+        currentValues[currentValues.length - 1] = Math.floor(
+          avgUp / data.current.length
+        );
         //}
         //currentValues.push(Math.floor(avgUp/data.current.length));
         sessionStorage.avgUp = JSON.stringify(currentValues);
-
-      }else{
+      } else {
         let currentValues = [];
-        currentValues.push(Math.floor(avgUp/data.current.length));
+        currentValues.push(Math.floor(avgUp / data.current.length));
         sessionStorage.avgUp = JSON.stringify(currentValues);
       }
     }, 25500);
@@ -136,6 +138,7 @@ function Tester() {
       startTest();
     }, 1500);
     // TODO: better transition to upload test
+
     data.current = [];
 
     setTimeout(() => {
