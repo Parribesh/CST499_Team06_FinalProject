@@ -2,6 +2,7 @@ import "./App.css";
 import React, { useState, useRef } from "react";
 import ReactSpeedometer from "react-d3-speedometer";
 import FadeIn from "react-fade-in";
+import {Redirect} from "react-router-dom";
 
 import Chart from "./components/chart";
 import { Button, FormLabel } from "react-bootstrap";
@@ -26,12 +27,19 @@ function Tester() {
   //const [maxValue, setMax] = useState([Math.ceil((1000 * speed + 1000 * speed * stab) / 10) * 10]);
   const [maxValue, setMax] = useState(150);
   const [forceRender, changeForce] = useState([false]);
+  //let regionName = sessionStorage.getItem("testingRegion");
   const [regionName, setRegion] = useState("California");
+  //const [regionName, setRegion] = useRef("California");
   let avgDown = 0;
   let avgUp = 0;
 
   const changeValue = () => {
-    const test = network.getDownloadSpeed(speed, stab);
+    console.log(regionName);
+    let test = network.getDownloadSpeed(speed, stab);
+    // else{
+    //   console.log("Virginia")
+    //   test = network.getDownloadSpeed(0.1, stab);
+    // }
     //console.log("Test value..." + test);
     //console.log("maxValue" + maxValue);
     if (test > maxValue) {
@@ -146,6 +154,10 @@ function Tester() {
       startUploadTest();
     }, 31000);
     // TODO: Local vs Distance speed, Jitter, ping tests
+
+    setTimeout(() => {
+      window.location.href = "/PingJitterTest"
+    }, 65000)
   };
 
   return (

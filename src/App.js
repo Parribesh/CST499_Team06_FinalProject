@@ -3,30 +3,10 @@ import React, {useState, useEffect, useRef} from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Navigation, Footer, Home, About, History, Map, Testing } from "./components";
 import './App.css';
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import ReactSpeedometer from "react-d3-speedometer";
-import Chart from './components/chart.js'
 import Tester from './Tester'
 import PingJitterTest from "./PingJitterTest";
-var network = require('./networkSim');
 function App() {
 
-  //examples on how to use it
-  //call function whenever you want a value
-  for(let i = 0; i < 10; i++){
-    //console.log("Download " + i + " " + network.getDownloadSpeed())
-  }
-  for(let i = 0; i < 10; i++){
-    //console.log("Upload " + i + " " + network.getUploadSpeed())
-  }
-  for(let i = 0; i < 10; i++){
-    //console.log("Ping " + i + " " + network.getPing())
-  }
-  for(let i = 0; i < 10; i++){
-    //console.log("Upload " + i + " " + network.getJitter())
-  }
 
   const [data, setData] = useState([32]);
   const [value, setValue] = useState([200]);
@@ -38,7 +18,6 @@ function App() {
   })
   const changeData = () => {
     const rand = Math.ceil(Math.random() * 35);
-    //console.log(rand);
     setData([...data, rand]);
     setLabel([...label, count.current])
   }

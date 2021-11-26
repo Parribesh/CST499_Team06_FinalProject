@@ -73,14 +73,14 @@ module.exports = {
 
     var min = startSpeed * speed;
     min -= min * stability
-    console.log("min: " + min);
+    //console.log("min: " + min);
     if (min <= 0) {
       min = 1;
     }
 
     var max = startSpeed * speed;
     max += max * stability;
-    console.log("max: " + max);
+    //console.log("max: " + max);
 
     return Math.floor(Math.random() * (max - min) + min);
   },
@@ -97,14 +97,14 @@ module.exports = {
 
     var min = startSpeed * speed;
     min -= min * stability
-    console.log("min: " + min);
+    //console.log("min: " + min);
     if (min <= 0) {
       min = 1;
     }
 
     var max = startSpeed * speed;
     max += max * stability;
-    console.log("max: " + max);
+    //console.log("max: " + max);
 
     return Math.floor(Math.random() * (max - min) + min);
   }

@@ -3,11 +3,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { Navigation, Footer, Home, About, History, Map } from "./components";
 import FadeIn from "react-fade-in";
 import PingJitterChart from "./components/PingJitterChart";
+import ReactSpeedometer from "react-d3-speedometer";
 var network = require("./networkSim");
 
 function PingJitterTest() {
-  //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from#using_arrow_functions_and_array.from
-  //const labels = Array.from({length: 31}, (v, i) => i);
   const pingData = useRef([]);
   const jitterData = useRef([]);
   const data = useRef([]);
@@ -16,7 +15,8 @@ function PingJitterTest() {
   const [currentAvg, updateAvg] = useState(0);
   const [currentStatus, updateStatus] = useState("Current Avg. ")
   const [testType, updateTest] = useState("Ping ");
-  const [region, updateRegion] = useState("California");
+  const [region, setRegion] = useState("California");
+  //const region = sessionStorage.getItem("testingRegion");
   let runningTotal = 0;
   const changeValue = () => {
     const test = network.getPing(0.1, 0.8);
@@ -46,7 +46,7 @@ function PingJitterTest() {
     //data.current.length = 0;
     var pullRate = 30;
     var space = 200;
-    for (var i = 0; i < 30; i++) {
+    for (var i = 0; i < 15; i++) {
       //setTimeout(() => { changeValue(); }, 200 * i);
       setTimeout(() => {
         changeValue();
@@ -74,12 +74,12 @@ function PingJitterTest() {
         let dummyValues = [''];
         sessionStorage.avgJitter = JSON.stringify(dummyValues);
       }
-    }, 30500);
+    }, 15500);
   };
 
   const startJitterTest = () => {
     updateTest("Jitter ");
-    for (var i = 0; i< 30; i++){
+    for (var i = 0; i< 10; i++){
       setTimeout(() => {
         jitterChangeValue();
       }, 1000 * i);
@@ -98,7 +98,7 @@ function PingJitterTest() {
         currentValues.push(Math.floor(runningTotal/jitterData.current.length));
         sessionStorage.avgJitter = JSON.stringify(currentValues);
       }
-    }, 30500);
+    }, 10500);
   }
 
   window.onload = function(){
@@ -111,7 +111,11 @@ function PingJitterTest() {
       runningTotal = 0;
       updateAvg(0);
       startJitterTest();
-    }, 35000)
+    }, 17500)
+    setTimeout(() => {
+      //Temporary
+      window.location.href = "/History";
+    }, 30500)
   }
   useEffect(() => {
 
@@ -131,6 +135,15 @@ function PingJitterTest() {
           <PingJitterChart data={data.current} isDone={isDone.current}></PingJitterChart>
           <p className="lead">Average Speed: {currentAvg} ms</p>
         </FadeIn>
+        {/*<ReactSpeedometer*/}
+        {/*  value={update}*/}
+        {/*    minValue={0}*/}
+        {/*    maxValue={70}*/}
+        {/*    currentValueText={"${value} Mbps"}*/}
+        {/*    segments={1000}*/}
+        {/*    maxSegmentLabels={10}*/}
+        {/*    needleTransition={"easeBounceIn"}*/}
+        {/*  />*/}
       </center>
     </div>
   );
