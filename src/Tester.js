@@ -124,9 +124,7 @@ function Tester() {
       if (JSON.parse(sessionStorage.getItem("avgUp")).length > 0) {
         let currentValues = JSON.parse(sessionStorage.getItem("avgUp"));
         //if(currentValues.get(currentValues.length) === null){
-        currentValues[currentValues.length - 1] = Math.floor(
-          avgUp / data.current.length
-        );
+        currentValues[currentValues.length - 1] = Math.floor(avgUp / data.current.length);
         //}
         //currentValues.push(Math.floor(avgUp/data.current.length));
         sessionStorage.avgUp = JSON.stringify(currentValues);
