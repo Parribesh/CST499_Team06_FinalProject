@@ -110,6 +110,7 @@ function Tester() {
     //TODO: Decide on color schemes, this is temp
     setStartColor("#103319");
     //re-initialized data.current to empty array.
+    sessionStorage.dataDown = JSON.stringify(data.current);
     data.current = [];
     setEndColor("#15d445");
     let space = 500;
@@ -118,6 +119,7 @@ function Tester() {
         changeUploadValue();
       }, space * i);
     }
+    sessionStorage.dataUp = JSON.stringify(data.current);
     //reset to 0
     setTimeout(() => {
       setValue(0);
