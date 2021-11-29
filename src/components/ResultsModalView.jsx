@@ -14,6 +14,24 @@ function ResultsModalView(props) {
             return props.location.address
         }
     }
+    let avgDown = 150;
+    let avgUp = 55;
+    let avgPing = 24;
+    let avgJitter = 3;
+    // let currentEntrySize = JSON.parse(sessionStorage.getItem('avgDown')).length;
+    // let avgDown = JSON.parse(sessionStorage.getItem('avgDown'))[currentEntrySize];
+    // let avgUp = JSON.parse(sessionStorage.getItem('avgUp'))[currentEntrySize];
+    //   if (avgUp === undefined || avgUp === ''){
+    //       avgUp = "N/A"
+    //   }
+    // let avgJitter = JSON.parse(sessionStorage.getItem('avgJitter'))[currentEntrySize];
+    //   if (avgJitter === undefined || avgJitter === ''){
+    //       avgJitter = "N/A"
+    //   }
+    // let avgPing = JSON.parse(sessionStorage.getItem('avgPing'))[currentEntrySize];
+    //   if (avgPing === undefined || avgPing === ''){
+    //       avgPing = "N/A"
+    //   }
 
     return (
         <>
@@ -37,14 +55,14 @@ function ResultsModalView(props) {
                                 <h1><FaDownload/></h1>
                             </Col>
                             <Col className={'my-auto'}>
-                                200 mbps
+                                {avgDown + ' Mbps'}
                             </Col>
                             <Col>
                                 <h5>Upload</h5>
                                 <h1><FaUpload/></h1>
                             </Col>
                             <Col className={'my-auto'}>
-                                100 mbps
+                                {(avgUp !== "N/A") ? avgUp + ' Mbps' : 'N/A'}
                             </Col>
                         </Row>
 
@@ -54,14 +72,14 @@ function ResultsModalView(props) {
                                 <h1><FaClock/></h1>
                             </Col>
                             <Col className={'my-auto'}>
-                                20 ms
+                                {(avgPing !== "N/A") ? avgPing + ' ms' : 'N/A'}
                             </Col>
                             <Col>
                                 <h5>Jitter</h5>
                                 <h1><RiArrowUpDownFill/></h1>
                             </Col>
                             <Col className={'my-auto'}>
-                                2 ms
+                                {(avgJitter !== "N/A") ? avgJitter + ' ms' : 'N/A'}
                             </Col>
                         </Row>
 
@@ -71,7 +89,7 @@ function ResultsModalView(props) {
                                 <h1><FaYoutube/></h1>
                             </Col>
                             <Col className={'my-auto'}>
-                                HD
+                                {(avgDown > 5) ? 'HD' : 'SD'}
                             </Col>
                             <Col>
                                 <h5>MOS</h5>
