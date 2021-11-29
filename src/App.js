@@ -24,7 +24,6 @@ function App() {
 
   const changeValue = () => {
       const test = Math.ceil(Math.random() * 45);
-      //console.log("Test value..." + test);
       setValue(Number(test))
   }
 
@@ -38,7 +37,7 @@ function App() {
                 <Route path="/about" exact component={() => <About />} />
                 <Route path="/history" exact component={() => <History />} />
                 <Route path="/map" exact component={() => <Map />} />
-                <Route path="/Tester" component={Tester}/>
+                <Route path="/Tester" exact component={() => <Tester />}/>
                 <Route path="/PingJitterTest" component={PingJitterTest}/>
             </Switch>
         </Router>

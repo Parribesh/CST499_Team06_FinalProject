@@ -65,9 +65,10 @@ function generateTable() {
       if (avgPing === undefined || avgPing === ''){
           avgPing = "N/A"
       }
+      let location = JSON.parse(sessionStorage.getItem('location'))[i];
       table_data.push({
           Date: new Date().toLocaleDateString(),
-          Location: 'Test Location',
+          Location: location,
           Download:  avgDown + ' Mbps',
           Upload:  (avgUp !== "N/A") ? avgUp + ' Mbps' : 'N/A',
           Jitter:  (avgJitter !== "N/A") ? avgJitter + ' ms' : 'N/A',

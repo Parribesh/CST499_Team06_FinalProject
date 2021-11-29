@@ -82,8 +82,8 @@ const Chart = (props) => {
         lineTension: 0.5,
         data: chartData.current,
         fill: true,
-        backgroundColor: "rgba(255,192,192,0.2)",
-        borderColor: "rgba(255, 192, 192, 0.7)",
+        backgroundColor: "rgba(255,0,34,0.73)",
+        borderColor: "rgba(100,52,100,0.7)",
       },
     ],
   };

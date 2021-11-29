@@ -1,11 +1,16 @@
 import "./App.css";
 import React, { useState, useRef } from "react";
 import ReactSpeedometer from "react-d3-speedometer";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import FadeIn from "react-fade-in";
 import {Redirect} from "react-router-dom";
 
 import Chart from "./components/chart";
+import ResultsModalView from "./components/ResultsModalView"
 import { Button, FormLabel } from "react-bootstrap";
+import Geocode from "react-geocode";
 var network = require("./networkSim");
 
 function Tester() {
@@ -27,11 +32,20 @@ function Tester() {
   //const [maxValue, setMax] = useState([Math.ceil((1000 * speed + 1000 * speed * stab) / 10) * 10]);
   const [maxValue, setMax] = useState(150);
   const [forceRender, changeForce] = useState([false]);
-  //let regionName = sessionStorage.getItem("testingRegion");
   const [regionName, setRegion] = useState("California");
-  //const [regionName, setRegion] = useRef("California");
   let avgDown = 0;
   let avgUp = 0;
+
+  const [location, setLocation] = useState({
+    loaded: false,
+    coordinates: { lat: "", lng: "" },
+    address: "",
+  });
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const changeValue = () => {
     console.log(regionName);
@@ -135,13 +149,20 @@ function Tester() {
         currentValues.push(Math.floor(avgUp / data.current.length));
         sessionStorage.avgUp = JSON.stringify(currentValues);
       }
+
+      // show results modal view
+      setTimeout( () => {
+        handleShow()
+      }, 2000);
+
     }, 25500);
   };
 
-  window.onload = function () {
+  const startTesting = () => {
     // Not the cleanest way of handling this but because our test are running on a timer anyway
     // we can just specify the delay amount so that tests happen one after another
     // otherwise they overlap -- Chris
+
     setTimeout(() => {
       startTest();
     }, 1500);
@@ -155,45 +176,160 @@ function Tester() {
     }, 31000);
     // TODO: Local vs Distance speed, Jitter, ping tests
 
-    setTimeout(() => {
-      window.location.href = "/PingJitterTest"
-    }, 65000)
+    // setTimeout(() => {
+    //   window.location.href = "/PingJitterTest"
+    // }, 65000)
   };
 
+  window.onload = function () {
+
+    var geoSuccess = (location) => {
+      getAddress(location.coords.latitude, location.coords.longitude);
+      startTesting()
+    };
+
+    var geoError = function(error) {
+      console.log('Error occurred. Error code: ' + error.code);
+      // error.code can be:
+      //   0: unknown error
+      //   1: permission denied
+      //   2: position unavailable (error response from location provider)
+      //   3: timed out
+      startTesting()
+    };
+    navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+
+  };
+
+  function getAddress(lat, lng)  {
+    // Get address from latitude & longitude.
+    Geocode.fromLatLng(lat, lng, 'AIzaSyCL3OMy-DFgOqpdR5DljN-JDzx_O7PCz2k').then(
+        (response) => {
+          const address = response.results[0].formatted_address;
+
+          let city, state, zip, country;
+
+          for(var i=0; i < response.results[0].address_components.length; i++) {
+            var component = response.results[0].address_components[i];
+            switch (component.types[0]) {
+
+              case "locality":
+                city = component.long_name;
+                break;
+              case "administrative_area_level_1":
+                state = component.long_name;
+                break;
+              case "postal_code":
+                zip = component.long_name;
+                break;
+              case "country":
+                country = component.long_name;
+                break;
+
+            }
+          }
+
+          console.log(city + ", " + state + ", " + zip);
+          let shortAddress = city + ", " + state + ", " + zip;
+          console.log(address);
+
+          setLocation({
+            loaded: true,
+            coordinates: {
+              lat: lat,
+              lng: lng,
+            },
+            address: shortAddress,
+          });
+
+          if(JSON.parse(sessionStorage.getItem('location')) != null){
+            let currentValues =  JSON.parse(sessionStorage.getItem('location'));
+            currentValues.push(shortAddress);
+            sessionStorage.setItem('location', JSON.stringify(currentValues));
+
+          }else{
+            let currentValues = [];
+            currentValues.push(shortAddress);
+            sessionStorage.setItem('location', JSON.stringify(currentValues));
+          }
+
+          // if (sessionStorage.getItem('location') != null) {
+          //   var currentValues = [];
+          //   currentValues.push(sessionStorage.getItem('location'));
+          //   currentValues.push(shortAddress);
+          //   sessionStorage.setItem('location', currentValues);
+          //
+          // } else {
+          //   // Save location
+          //   let currentValues = [];
+          //   currentValues.push(shortAddress);
+          //   sessionStorage.setItem('location', currentValues);
+          // }
+        },
+        (error) => {
+          console.error(error);
+          setLocation({
+            loaded: true,
+            coordinates: {
+              lat: lat,
+              lng: lng,
+            },
+            address: "N/A",
+          });
+
+          if (sessionStorage.getItem('location') != null) {
+            var currentValues = [];
+            currentValues.push(sessionStorage.getItem('location'));
+            currentValues.push(location.address);
+            sessionStorage.setItem('location', currentValues);
+
+          } else {
+            // Save location
+            let currentValues = [];
+            currentValues.push(location.address);
+            sessionStorage.setItem('location', currentValues);
+          }
+        }
+    );
+  }
+
   return (
-    <div className="App" className={"center"}>
-      <center>
-        <FadeIn>
-          <div className="jumbotron jumbotron-fluid">
-            <div className="container">
-              <h1 className="display-4">{testName}</h1>
-              <p className="lead">Current Testing Region: {regionName}</p>
-              <hr className="my-4"></hr>
-            </div>
-          </div>
-          <ReactSpeedometer
-            value={value}
-            minValue={0}
-            maxValue={maxValue}
-            forceRender={forceRender}
-            currentValueText={"${value} Mbps"}
-            segments={1000}
-            maxSegmentLabels={10}
-            startColor={startColor}
-            endColor={endColor}
-            textColor={"#ffffff"}
-            needleColor={"#ff3814"}
-            //needleTransitionDuration={100}
-            needleTransition={"easeBounceIn"}
-          />
-          <Chart
-            data={data.current}
-            isDone={isDone.current}
-            isHistory={false}
-          />
-        </FadeIn>
-      </center>
-    </div>
+      <Container className={'bg-body bg-opacity-25 my-5'} style={{}}>
+          <center>
+            <FadeIn>
+              <div className="jumbotron jumbotron-fluid">
+                <div className="container">
+                  <h1 className="display-1">{testName}</h1>
+                  <p className="display-6">Current Testing Region: {regionName}</p>
+                  <hr className="my-4"></hr>
+                </div>
+              </div>
+              <ReactSpeedometer
+                  value={value}
+                  minValue={0}
+                  maxValue={maxValue}
+                  forceRender={forceRender}
+                  currentValueText={"${value} Mbps"}
+                  segments={1000}
+                  maxSegmentLabels={10}
+                  startColor={startColor}
+                  endColor={endColor}
+                  textColor={"#ffffff"}
+                  needleColor={"#ff3814"}
+                  //needleTransitionDuration={100}
+                  needleTransition={"easeBounceIn"}
+              />
+              <Chart
+                  data={data.current}
+                  isDone={isDone.current}
+                  isHistory={false}
+              />
+              <ResultsModalView location={location} hide={handleClose} show={show}/>
+            </FadeIn>
+          </center>
+      </Container>
+
+
   );
 }
 
