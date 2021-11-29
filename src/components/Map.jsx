@@ -1,5 +1,6 @@
-import React from "react";
-import {GoogleMap, LoadScript, useLoadScript, Marker, InfoWindow} from '@react-google-maps/api';
+import React, {useEffect, useState} from "react";
+import {GoogleMap, useLoadScript, Marker, InfoWindow} from '@react-google-maps/api';
+import Geocode from "react-geocode";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -29,8 +30,61 @@ const options = {
 }
 
 
-
 function Map() {
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    function getAddress(lat, lng)  {
+        // Get address from latitude & longitude.
+        Geocode.fromLatLng(lat, lng, 'AIzaSyCL3OMy-DFgOqpdR5DljN-JDzx_O7PCz2k').then(
+            (response) => {
+                const address = response.results[0].formatted_address;
+
+                let city, state, zip, country;
+
+                for(var i=0; i < response.results[0].address_components.length; i++) {
+                    var component = response.results[0].address_components[i];
+                    switch (component.types[0]) {
+
+                        case "locality":
+                            city = component.long_name;
+                            break;
+                        case "administrative_area_level_1":
+                            state = component.long_name;
+                            break;
+                        case "postal_code":
+                            zip = component.long_name;
+                            break;
+                        case "country":
+                            country = component.long_name;
+                            break;
+                    }
+                }
+
+                console.log(city + ", " + state + ", " + zip);
+                let shortAddress = city + ", " + state + ", " + zip;
+                console.log(address);
+
+                setMarkers(current => [
+                    {
+                        lat: lat,
+                        lng: lng,
+                        address: shortAddress,
+                        time: new Date()
+                    },
+                ]);
+
+            },
+            (error) => {
+                console.error(error);
+            }
+        );
+    }
+
+
     const {isLoaded, loadError} = useLoadScript({
         googleMapsApiKey: "AIzaSyCL3OMy-DFgOqpdR5DljN-JDzx_O7PCz2k",
         libraries,
@@ -41,14 +95,7 @@ function Map() {
     const [selected, setSelected] = React.useState(null);
 
     const onMapClick = React.useCallback((event) => {
-        setMarkers(current => [
-            // ...current,
-            {
-                lat: event.latLng.lat(),
-                lng: event.latLng.lng(),
-                time: new Date()
-            },
-        ]);
+        getAddress(event.latLng.lat(), event.latLng.lng())
     }, []);
 
     const mapRef = React.useRef();
@@ -60,20 +107,39 @@ function Map() {
     const panTo = React.useCallback((lat, lng) => {
         mapRef.current.panTo({lat, lng});
         mapRef.current.setZoom(11);
-
-        setMarkers(current => [
-            {
-                lat: lat,
-                lng: lng,
-                time: new Date(),
-                // infoText: "Coordinates:\n" + "Lat: " + lat + " " + "Long: " + lng
-            },
-        ]);
+        getAddress(lat, lng)
     }, []);
 
 
     if (loadError) return "Error loading maps";
     if (!isLoaded) return "Loading Maps";
+
+
+    window.onload = function () {
+
+        handleShow()
+
+        var startPos;
+
+        var geoSuccess = function(position) {
+            startPos = position;
+            console.log(startPos.coords.latitude);
+            console.log(startPos.coords.longitude);
+            // panTo coordinates if geoLocation returns successfully.
+            panTo(startPos.coords.latitude, startPos.coords.longitude);
+        };
+
+        var geoError = function(error) {
+            console.log('Error occurred. Error code: ' + error.code);
+            // error.code can be:
+            //   0: unknown error
+            //   1: permission denied
+            //   2: position unavailable (error response from location provider)
+            //   3: timed out
+        };
+        navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+
+    };
 
     return (
         <Container fluid>
@@ -100,11 +166,9 @@ function Map() {
                                     setSelected(marker);
                                 }}
                             >
-                                <InfoWindow position={{ lat: marker.lat, lng: marker.lng }}><div className={"my-1"} style={{color: "black"}}>Lat: {marker.lat}<br/>Long: {marker.lng}</div></InfoWindow>
+                                <InfoWindow position={{ lat: marker.lat, lng: marker.lng }}><div className={"my-1"} style={{color: "black"}}><h6>{marker.address}</h6></div></InfoWindow>
                             </Marker>
                         ))}
-
-                        {/*{selected? <InfoWindow position={{ lat: selected.lat, lng: selected.lng }}><div>Testing</div></InfoWindow> : null}*/}
 
                     </GoogleMap>
                 </Col>
@@ -236,6 +300,7 @@ function Map() {
                             </Table>
                         </Tab>
                     </Tabs>
+                    {/*<div>{location.loaded ? getAddress(location.coordinates.lat, location.coordinates.lng): "Location data not available yet"}</div>*/}
                 </Col>
             </Row>
             <MapModalView hide={handleClose} show={show} />;

@@ -1,5 +1,5 @@
 import React from "react";
-import PlacesAutocomplete, {geocodeByAddress, geocodeByPlaceId, getLatLng} from 'react-places-autocomplete';
+import PlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-places-autocomplete';
 
 class MapSearchBar extends React.Component {
     constructor(props) {

@@ -31,6 +31,19 @@ tr {
   /*height: 30px;*/
 }
 
+.testing {
+  background: #f5f5f5;
+  opacity: 40%;
+}
+
+.resultsmodal {
+  color: black;
+}
+
+.modalBody {
+  text-align: center;
+}
+
 .searchBar {
   position: absolute;
   /*top: 1rem;*/
