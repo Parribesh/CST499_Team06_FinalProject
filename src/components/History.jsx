@@ -64,7 +64,7 @@ function generateTable(){
     if(JSON.parse(sessionStorage.getItem('avgUp'))[i] === ''){
         table_data.push({
                 Date: new Date().toLocaleDateString(),
-                Location: 'Test Location',
+                Location: JSON.parse(sessionStorage.getItem('location'))[i],
                 Download: JSON.parse(sessionStorage.getItem('avgDown'))[i] + ' Mbps',
                 Upload: 'N/A',
                 Jitter: 'test',
@@ -76,7 +76,7 @@ function generateTable(){
     else{
       table_data.push({
               Date: new Date().toLocaleDateString(),
-              Location: 'Test Location',
+              Location: JSON.parse(sessionStorage.getItem('location'))[i],
               Download: JSON.parse(sessionStorage.getItem('avgDown'))[i] + ' Mbps',
               Upload: JSON.parse(sessionStorage.getItem('avgUp'))[i] + ' Mbps',
               Jitter: 'test',

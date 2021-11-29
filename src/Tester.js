@@ -30,6 +30,12 @@ function Tester() {
   let avgDown = 0;
   let avgUp = 0;
 
+  const [location, setLocation] = useState({
+    loaded: false,
+    coordinates: { lat: "", lng: "" },
+    address: "",
+  });
+
   const changeValue = () => {
     const test = network.getDownloadSpeed(speed, stab);
     //console.log("Test value..." + test);
@@ -109,6 +115,7 @@ function Tester() {
         changeUploadValue();
       }, space * i);
     }
+
     //reset to 0
     setTimeout(() => {
       setValue(0);
@@ -125,13 +132,20 @@ function Tester() {
         currentValues.push(Math.floor(avgUp/dataUp.current.length));
         sessionStorage.avgUp = JSON.stringify(currentValues);
       }
+
+      // show results modal view
+      setTimeout( () => {
+        handleShow()
+      }, 2000);
+
     }, 25500);
   };
 
-  window.onload = function () {
+  const startTesting = () => {
     // Not the cleanest way of handling this but because our test are running on a timer anyway
     // we can just specify the delay amount so that tests happen one after another
     // otherwise they overlap -- Chris
+
     setTimeout(() => {
       startTest();
     }, 1500);
@@ -143,6 +157,27 @@ function Tester() {
       startUploadTest();
     }, 31000);
     // TODO: Local vs Distance speed, Jitter, ping tests
+
+  };
+
+  window.onload = function () {
+
+    var geoSuccess = (location) => {
+      getAddress(location.coords.latitude, location.coords.longitude);
+      startTesting()
+    };
+
+    var geoError = function(error) {
+      console.log('Error occurred. Error code: ' + error.code);
+      // error.code can be:
+      //   0: unknown error
+      //   1: permission denied
+      //   2: position unavailable (error response from location provider)
+      //   3: timed out
+      startTesting()
+    };
+    navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+
   };
 
   return (

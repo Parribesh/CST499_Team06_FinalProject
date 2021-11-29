@@ -6,7 +6,9 @@ import Col from "react-bootstrap/Col";
 import Table from 'react-bootstrap/Table';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import MapSearchBar from './MapSearchBar'
+import MapSearchBar from './MapSearchBar';
+import MapModalView from "./MapModalView";
+import ResultsModalView from "./ResultsModalView";
 
 
 const mapContainerStyle = {
@@ -236,7 +238,9 @@ function Map() {
                     </Tabs>
                 </Col>
             </Row>
+            <MapModalView hide={handleClose} show={show} />;
         </Container>
+
     );
 }
 
