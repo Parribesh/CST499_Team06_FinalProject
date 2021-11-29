@@ -234,12 +234,8 @@ function Tester() {
 
           if(JSON.parse(sessionStorage.getItem('location')) != null){
             let currentValues =  JSON.parse(sessionStorage.getItem('location'));
-            //if(currentValues.get(currentValues.length) === null){
-            currentValues[currentValues.length - 1] = shortAddress;
-            //}
-            //currentValues.push(Math.floor(avgUp/data.current.length));
+            currentValues.push(shortAddress);
             sessionStorage.setItem('location', JSON.stringify(currentValues));
-            // sessionStorage.avgUp = JSON.stringify(currentValues);
 
           }else{
             let currentValues = [];
