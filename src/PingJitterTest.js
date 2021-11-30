@@ -4,6 +4,7 @@ import { Navigation, Footer, Home, About, History, Map } from "./components";
 import FadeIn from "react-fade-in";
 import PingJitterChart from "./components/PingJitterChart";
 import ReactSpeedometer from "react-d3-speedometer";
+import ResultsModalView from "./components/ResultsModalView";
 var network = require("./networkSim");
 
 function PingJitterTest() {
@@ -11,12 +12,20 @@ function PingJitterTest() {
   const jitterData = useRef([]);
   const data = useRef([]);
   const isDone = useRef(false);
+  const avgDown = useRef(0);
+  const avgUp = useRef();
+  const avgPing = useRef();
+  const avgJitter = useRef();
+  const location = useRef();
   const [update, forceUpdate] = useState();
   const [currentAvg, updateAvg] = useState(0);
   const [currentStatus, updateStatus] = useState("Current Avg. ")
   const [testType, updateTest] = useState("Ping ");
   const [region, setRegion] = useState("California");
-  //const region = sessionStorage.getItem("testingRegion");
+  const [show, setShow] = useState(false);
+  //const [location, setLocation] = useRef();
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   let runningTotal = 0;
   const changeValue = () => {
     const test = network.getPing(0.1, 0.8);
@@ -98,6 +107,16 @@ function PingJitterTest() {
         currentValues.push(Math.floor(runningTotal/jitterData.current.length));
         sessionStorage.avgJitter = JSON.stringify(currentValues);
       }
+      // show results modal view
+      setTimeout( () => {
+        let length = JSON.parse(sessionStorage.getItem('avgDown')).length - 1;
+        avgDown.current = JSON.parse(sessionStorage.getItem('avgDown'))[length];
+        avgUp.current = JSON.parse(sessionStorage.getItem('avgUp'))[length];
+        avgPing.current = JSON.parse(sessionStorage.getItem('avgPing'))[length];
+        avgJitter.current = JSON.parse(sessionStorage.getItem('avgJitter'))[length];
+        location.current = JSON.parse(sessionStorage.getItem('location'))[length];
+        handleShow()
+      }, 2000)
     }, 10500);
   }
 
@@ -112,10 +131,6 @@ function PingJitterTest() {
       updateAvg(0);
       startJitterTest();
     }, 17500)
-    setTimeout(() => {
-      //Temporary
-      window.location.href = "/History";
-    }, 30500)
   }
   useEffect(() => {
 
@@ -135,15 +150,7 @@ function PingJitterTest() {
           <PingJitterChart data={data.current} isDone={isDone.current}></PingJitterChart>
           <p className="lead">Average Speed: {currentAvg} ms</p>
         </FadeIn>
-        {/*<ReactSpeedometer*/}
-        {/*  value={update}*/}
-        {/*    minValue={0}*/}
-        {/*    maxValue={70}*/}
-        {/*    currentValueText={"${value} Mbps"}*/}
-        {/*    segments={1000}*/}
-        {/*    maxSegmentLabels={10}*/}
-        {/*    needleTransition={"easeBounceIn"}*/}
-        {/*  />*/}
+        <ResultsModalView location={location} hide={handleClose} show={show} avgDown={avgDown.current} avgUp={avgUp.current} avgPing={avgPing.current} avgJitter={avgJitter.current}/>
       </center>
     </div>
   );

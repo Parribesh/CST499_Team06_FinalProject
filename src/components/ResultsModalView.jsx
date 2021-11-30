@@ -4,9 +4,17 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import {useRef} from "react";
 
 function ResultsModalView(props) {
-
+    const avgDown = useRef(0);
+    // const avgDown = props.avgDown;
+    const avgUp = useRef(0);
+    // const avgUp = props.avgUp;
+    const avgPing = useRef(0);
+    // const avgPing = props.avgPing;
+    const avgJitter = useRef(0);
+    // const avgJitter = props.avgJitter;
     const displayLocation = () => {
         if (props.location.address === "") {
             return "Location Not Available. Please Make Sure Location is Enabled."
@@ -14,10 +22,14 @@ function ResultsModalView(props) {
             return props.location.address
         }
     }
-    let avgDown = 150;
-    let avgUp = 55;
-    let avgPing = 24;
-    let avgJitter = 3;
+    avgDown.current = props.avgDown;
+    avgUp.current = props.avgUp;
+    avgPing.current = props.avgPing;
+    avgJitter.current = props.avgJitter;
+    // let avgDown = 150;
+    // let avgUp = 55;
+    // let avgPing = 24;
+    // let avgJitter = 3;
     // let currentEntrySize = JSON.parse(sessionStorage.getItem('avgDown')).length;
     // let avgDown = JSON.parse(sessionStorage.getItem('avgDown'))[currentEntrySize];
     // let avgUp = JSON.parse(sessionStorage.getItem('avgUp'))[currentEntrySize];
@@ -55,14 +67,14 @@ function ResultsModalView(props) {
                                 <h1><FaDownload/></h1>
                             </Col>
                             <Col className={'my-auto'}>
-                                {avgDown + ' Mbps'}
+                                {avgDown.current + ' Mbps'}
                             </Col>
                             <Col>
                                 <h5>Upload</h5>
                                 <h1><FaUpload/></h1>
                             </Col>
                             <Col className={'my-auto'}>
-                                {(avgUp !== "N/A") ? avgUp + ' Mbps' : 'N/A'}
+                                {(avgUp.current !== "N/A") ? avgUp.current + ' Mbps' : 'N/A'}
                             </Col>
                         </Row>
 
@@ -72,14 +84,14 @@ function ResultsModalView(props) {
                                 <h1><FaClock/></h1>
                             </Col>
                             <Col className={'my-auto'}>
-                                {(avgPing !== "N/A") ? avgPing + ' ms' : 'N/A'}
+                                {(avgPing.current !== "N/A") ? avgPing.current + ' ms' : 'N/A'}
                             </Col>
                             <Col>
                                 <h5>Jitter</h5>
                                 <h1><RiArrowUpDownFill/></h1>
                             </Col>
                             <Col className={'my-auto'}>
-                                {(avgJitter !== "N/A") ? avgJitter + ' ms' : 'N/A'}
+                                {(avgJitter.current !== "N/A") ? avgJitter.current + ' ms' : 'N/A'}
                             </Col>
                         </Row>
 
@@ -89,7 +101,7 @@ function ResultsModalView(props) {
                                 <h1><FaYoutube/></h1>
                             </Col>
                             <Col className={'my-auto'}>
-                                {(avgDown > 5) ? 'HD' : 'SD'}
+                                {(avgDown.current > 5) ? 'HD' : 'SD'}
                             </Col>
                             <Col>
                                 <h5>MOS</h5>

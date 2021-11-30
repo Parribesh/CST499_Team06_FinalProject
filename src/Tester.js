@@ -80,7 +80,7 @@ function Tester() {
     dataUp.current = [...dataUp.current, test];
     data.current = [...dataUp.current];
     avgUp += test;
-    console.log(data.current);
+    //console.log(data.current);
   };
 
   const startTest = () => {
@@ -150,10 +150,10 @@ function Tester() {
         sessionStorage.avgUp = JSON.stringify(currentValues);
       }
 
-      // show results modal view
-      setTimeout( () => {
-        handleShow()
-      }, 2000);
+      // // show results modal view
+      // setTimeout( () => {
+      //   handleShow()
+      // }, 2000);
 
     }, 25500);
   };
@@ -176,9 +176,9 @@ function Tester() {
     }, 31000);
     // TODO: Local vs Distance speed, Jitter, ping tests
 
-    // setTimeout(() => {
-    //   window.location.href = "/PingJitterTest"
-    // }, 65000)
+    setTimeout(() => {
+      window.location.href = "/PingJitterTest"
+    }, 65000)
   };
 
   window.onload = function () {
@@ -324,7 +324,6 @@ function Tester() {
                   isDone={isDone.current}
                   isHistory={false}
               />
-              <ResultsModalView location={location} hide={handleClose} show={show}/>
             </FadeIn>
           </center>
       </Container>
