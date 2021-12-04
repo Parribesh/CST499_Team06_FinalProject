@@ -4,13 +4,9 @@ import Geocode from "react-geocode";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Table from 'react-bootstrap/Table';
-import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab';
 import MapSearchBar from './MapSearchBar';
 import MapModalView from "./MapModalView";
-import ResultsModalView from "./ResultsModalView";
-
+import Button from "react-bootstrap/Button";
 
 const mapContainerStyle = {
     position: 'fixed',
@@ -33,9 +29,12 @@ const options = {
 function Map() {
 
     const [show, setShow] = useState(false);
+    const [modalType, setModalType] = useState('instructions')
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const updateModalType = () => setModalType('comparisons')
 
     function getAddress(lat, lng)  {
         // Get address from latitude & longitude.
@@ -110,6 +109,11 @@ function Map() {
         getAddress(lat, lng)
     }, []);
 
+    function displayComparisons() {
+        updateModalType()
+        handleShow()
+    }
+
 
     if (loadError) return "Error loading maps";
     if (!isLoaded) return "Loading Maps";
@@ -142,169 +146,40 @@ function Map() {
     };
 
     return (
-        <Container fluid>
-            <Row className={'test py-3'}>
-                <Col>
-                    <div className={"searchBar"}><MapSearchBar panTo={panTo}/></div>
-                    <GoogleMap
-                        mapContainerStyle={mapContainerStyle}
-                        center={center}
-                        zoom={7}
-                        options={options}
-                        onClick={onMapClick}
-                        onLoad={onMapLoad}
+      <div>
+          <div className={'test'}>
+              <div className={"searchBar"}><MapSearchBar panTo={panTo}/></div>
+              <GoogleMap
+                  mapContainerStyle={mapContainerStyle}
+                  center={center}
+                  zoom={7}
+                  options={options}
+                  onClick={onMapClick}
+                  onLoad={onMapLoad}
 
-                    >
-                        {markers.map(marker => (
-                            <Marker
-                                key={marker.time.toISOString()}
-                                position={{lat: marker.lat, lng: marker.lng}}
-                                onClick={() => {
-                                    setSelected(marker);
-                                }}
-                                onLoad={() => {
-                                    setSelected(marker);
-                                }}
-                            >
-                                <InfoWindow position={{ lat: marker.lat, lng: marker.lng }}><div className={"my-1"} style={{color: "black"}}><h6>{marker.address}</h6></div></InfoWindow>
-                            </Marker>
-                        ))}
+              >
+                  {markers.map(marker => (
+                      <Marker
+                          key={marker.time.toISOString()}
+                          position={{lat: marker.lat, lng: marker.lng}}
+                          onClick={() => {
+                              setSelected(marker);
+                          }}
+                          onLoad={() => {
+                              setSelected(marker);
+                          }}
+                      >
+                          <InfoWindow position={{ lat: marker.lat, lng: marker.lng }}><div className={"my-1"} style={{color: "black"}}>
+                              <Button onClick={displayComparisons}>{marker.address}</Button></div></InfoWindow>
+                      </Marker>
+                  ))}
 
-                    </GoogleMap>
-                </Col>
+              </GoogleMap>
+          </div>
+          <MapModalView hide={handleClose} show={show} type={modalType}/>
+      </div>
 
-                <Col>
-                    <h1 className={'text-center'}>ISP Comparisons</h1>
-                    <Tabs defaultActiveKey="mobileBroadbrand" className="bg-light">
-                        <Tab eventKey="mobileBroadbrand" title="Mobile Broadband" >
-                            <Table striped bordered hover variant={"light"}>
-                                <thead>
-                                <tr>
-                                    <th>ISP</th>
-                                    <th>Connection Type</th>
-                                    <th>Download (mbps)</th>
-                                    <th>Upload (mbps)</th>
 
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>AT&T Mobility</td>
-                                    <td>HSPA+</td>
-                                    <td>1.5-3</td>
-                                    <td>.2-.75</td>
-
-                                </tr>
-                                <tr>
-                                    <td>AT&T Mobility</td>
-                                    <td>Asymmetric xDSL</td>
-                                    <td>6-10</td>
-                                    <td>1.5-3</td>
-                                </tr>
-                                <tr>
-                                    <td>AT&T Mobility</td>
-                                    <td>WCDMA/UTMS/HSPA</td>
-                                    <td>1.5-3</td>
-                                    <td>.2-.75</td>
-                                </tr>
-                                <tr>
-                                    <td>Sprint</td>
-                                    <td>EVDO/EVDO Rev A</td>
-                                    <td>.2-.75</td>
-                                    <td>.2-.75</td>
-                                </tr>
-                                <tr>
-                                    <td>Sprint</td>
-                                    <td>LTE</td>
-                                    <td>3-6</td>
-                                    <td>.75-1.5</td>
-                                </tr>
-                                <tr>
-                                    <td>T-Mobile</td>
-                                    <td>GSM</td>
-                                    <td>0-.1</td>
-                                    <td>0-.1</td>
-                                </tr>
-                                <tr>
-                                    <td>T-Mobile</td>
-                                    <td>LTE</td>
-                                    <td>6-10</td>
-                                    <td>3-6</td>
-                                </tr>
-                                <tr>
-                                    <td>T-Mobile</td>
-                                    <td>WCDMA/UTMS/HSPA</td>
-                                    <td>0-.1</td>
-                                    <td>0-.1</td>
-                                </tr>
-                                <tr>
-                                    <td>Verizon Wireless</td>
-                                    <td>CDMA</td>
-                                    <td>0-.1</td>
-                                    <td>0-.1</td>
-                                </tr>
-                                <tr>
-                                    <td>Verizon Wireless</td>
-                                    <td>EVDO/EVDO Rev A</td>
-                                    <td>.75-1.5</td>
-                                    <td>.2-.75</td>
-                                </tr>
-                                <tr>
-                                    <td>Verizon Wireless</td>
-                                    <td>LTE</td>
-                                    <td>3-6</td>
-                                    <td>1.5-3</td>
-                                </tr>
-                                </tbody>
-                            </Table>
-                        </Tab>
-                        <Tab eventKey="fixedBroadbrand" title="Fixed Broadband">
-                            <Table striped bordered hover variant={"light"}>
-                                <thead>
-                                <tr>
-                                    <th>ISP</th>
-                                    <th>Connection Type</th>
-                                    <th>Download (mbps)</th>
-                                    <th>Upload (mbps)</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>AT&T California</td>
-                                    <td>ADSL2, ADSL2+</td>
-                                    <td>10-25</td>
-                                    <td>.75-1.5</td>
-
-                                </tr>
-                                <tr>
-                                    <td>AT&T California</td>
-                                    <td>Asymmetric xDSL</td>
-                                    <td>6-10</td>
-                                    <td>.2-.75</td>
-                                </tr>
-                                <tr>
-                                    <td>AT&T California</td>
-                                    <td>VDSL</td>
-                                    <td>50-100</td>
-                                    <td>10-25</td>
-                                </tr>
-                                <tr>
-                                    <td>Comcast</td>
-                                    <td>Cable Modem DOCSIS 3.1</td>
-                                    <td>100-1000</td>
-                                    <td>25-50</td>
-                                </tr>
-
-                                </tbody>
-                            </Table>
-                        </Tab>
-                    </Tabs>
-                    {/*<div>{location.loaded ? getAddress(location.coordinates.lat, location.coordinates.lng): "Location data not available yet"}</div>*/}
-                </Col>
-            </Row>
-            <MapModalView hide={handleClose} show={show} />;
-        </Container>
 
     );
 }
