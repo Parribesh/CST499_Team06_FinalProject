@@ -3,10 +3,9 @@ import React, { useState, useRef } from "react";
 import ReactSpeedometer from "react-d3-speedometer";
 import Container from "react-bootstrap/Container";
 import FadeIn from "react-fade-in";
+import { Redirect } from "react-router-dom";
 
 import Chart from "./components/chart";
-import ResultsModalView from "./components/ResultsModalView";
-import { Button, FormLabel } from "react-bootstrap";
 import Geocode from "react-geocode";
 var network = require("./networkSim");
 
@@ -231,8 +230,6 @@ function Tester() {
     }, 1500); //1.5 second timer
     // TODO: better transition to upload test
 
-    data.current = [];
-
     setTimeout(() => {
       //isDone.current = true; //No longer used.
       testNum.current++; //Increase testNum counter
@@ -246,6 +243,10 @@ function Tester() {
     setTimeout(() => {
       sessionStorage.dataUp = JSON.stringify(data.current);
     }, 57100);
+
+    setTimeout(() => {
+      window.location.href = "/PingJitterTest";
+    }, 60000);
   };
 
   // Function called when window initially loads
@@ -406,11 +407,6 @@ function Tester() {
             isHistory={false}
             clear={clearGraph}
             testType={testType}
-          />
-          <ResultsModalView
-            location={location}
-            hide={handleClose}
-            show={show}
           />
         </FadeIn>
       </center>
