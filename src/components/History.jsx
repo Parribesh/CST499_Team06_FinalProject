@@ -43,9 +43,6 @@ function checkTest() {
     return (
       <Container>
         <Row className={"justify-content-center"}>
-          <Col>
-            <h1>GRAPH</h1>
-          </Col>
           <HistoryChart
             data1={JSON.parse(sessionStorage.getItem("dataDown"))}
             data2={JSON.parse(sessionStorage.getItem("dataUp"))}
@@ -77,9 +74,9 @@ function generateTable() {
       avgPing = "N/A";
     }
     let location = JSON.parse(sessionStorage.getItem("location"))[i];
-     let time = JSON.parse(sessionStorage.getItem('testCompletionTime'))[i];
+    let time = JSON.parse(sessionStorage.getItem('testCompletionTime'))[i];
     table_data.push({
-      Date: new Date().toLocaleDateString(),
+      Date: time,
       Location: location,
       Download: avgDown + " Mbps",
       Upload: avgUp !== "N/A" ? avgUp + " Mbps" : "N/A",

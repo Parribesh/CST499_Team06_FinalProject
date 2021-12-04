@@ -217,7 +217,7 @@ function Tester() {
     }, 13000); // 13 seconds timer
   };
 
-  //Function to start both Dowload and Upload Tests
+  //Function to start both Download and Upload Tests
   const startTesting = () => {
     // Not the cleanest way of handling this but because our test are running on a timer anyway
     // we can just specify the delay amount so that tests happen one after another
