@@ -65,7 +65,7 @@ function generateTable() {
       if (avgPing === undefined || avgPing === ''){
           avgPing = "N/A"
       }
-      let location = JSON.parse(sessionStorage.getItem('location'));
+      let location = JSON.parse(sessionStorage.getItem('location'))[i];
       table_data.push({
           Date: new Date().toLocaleDateString(),
           Location: location,
@@ -74,7 +74,7 @@ function generateTable() {
           Jitter:  (avgJitter !== "N/A") ? avgJitter + ' ms' : 'N/A',
           Ping: (avgPing !== "N/A") ? avgPing + ' ms' : 'N/A',
           Video: (avgDown > 5) ? 'HD' : 'SD',
-          MOS: 'test'
+          MOS: 'Satisfactory'
       })
   }
   let table = {

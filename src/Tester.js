@@ -6,8 +6,6 @@ import FadeIn from "react-fade-in";
 import {Redirect} from "react-router-dom";
 
 import Chart from "./components/chart";
-import ResultsModalView from "./components/ResultsModalView"
-import { Button, FormLabel } from "react-bootstrap";
 import Geocode from "react-geocode";
 var network = require("./networkSim");
 

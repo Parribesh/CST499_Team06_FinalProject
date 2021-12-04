@@ -113,7 +113,7 @@ function PingJitterTest() {
         avgUp.current = JSON.parse(sessionStorage.getItem('avgUp'))[length];
         avgPing.current = JSON.parse(sessionStorage.getItem('avgPing'))[length];
         avgJitter.current = JSON.parse(sessionStorage.getItem('avgJitter'))[length];
-        location.current = JSON.parse(sessionStorage.getItem('location'));
+        location.current = JSON.parse(sessionStorage.getItem('location'))[length];
         handleShow()
       }, 2000)
     }, 10500);
