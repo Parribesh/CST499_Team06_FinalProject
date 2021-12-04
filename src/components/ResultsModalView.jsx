@@ -4,16 +4,49 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import {useRef} from "react";
 
 function ResultsModalView(props) {
-
-    const displayLocation = () => {
-        if (props.location.address === "") {
-            return "Location Not Available. Please Make Sure Location is Enabled."
-        } else {
-            return props.location.address
-        }
-    }
+    const avgDown = useRef(0);
+    // const avgDown = props.avgDown;
+    const avgUp = useRef(0);
+    // const avgUp = props.avgUp;
+    const avgPing = useRef(0);
+    // const avgPing = props.avgPing;
+    const avgJitter = useRef(0);
+    // const avgJitter = props.avgJitter;
+    const location = useRef([]);
+    // const displayLocation = () => {
+    //     // if (props.location.length === 0) {
+    //     //     return "Location Not Available. Please Make Sure Location is Enabled."
+    //     // } else {
+    //     //     return props.location[0]
+    //     // }
+    //     console.log(props.location);
+    // }
+    avgDown.current = props.avgDown;
+    avgUp.current = props.avgUp;
+    avgPing.current = props.avgPing;
+    avgJitter.current = props.avgJitter;
+    location.current = [...props.location]
+    // let avgDown = 150;
+    // let avgUp = 55;
+    // let avgPing = 24;
+    // let avgJitter = 3;
+    // let currentEntrySize = JSON.parse(sessionStorage.getItem('avgDown')).length;
+    // let avgDown = JSON.parse(sessionStorage.getItem('avgDown'))[currentEntrySize];
+    // let avgUp = JSON.parse(sessionStorage.getItem('avgUp'))[currentEntrySize];
+    //   if (avgUp === undefined || avgUp === ''){
+    //       avgUp = "N/A"
+    //   }
+    // let avgJitter = JSON.parse(sessionStorage.getItem('avgJitter'))[currentEntrySize];
+    //   if (avgJitter === undefined || avgJitter === ''){
+    //       avgJitter = "N/A"
+    //   }
+    // let avgPing = JSON.parse(sessionStorage.getItem('avgPing'))[currentEntrySize];
+    //   if (avgPing === undefined || avgPing === ''){
+    //       avgPing = "N/A"
+    //   }
 
     return (
         <>
@@ -37,14 +70,14 @@ function ResultsModalView(props) {
                                 <h1><FaDownload/></h1>
                             </Col>
                             <Col className={'my-auto'}>
-                                200 mbps
+                                {avgDown.current + ' Mbps'}
                             </Col>
                             <Col>
                                 <h5>Upload</h5>
                                 <h1><FaUpload/></h1>
                             </Col>
                             <Col className={'my-auto'}>
-                                100 mbps
+                                {(avgUp.current !== "N/A") ? avgUp.current + ' Mbps' : 'N/A'}
                             </Col>
                         </Row>
 
@@ -54,14 +87,14 @@ function ResultsModalView(props) {
                                 <h1><FaClock/></h1>
                             </Col>
                             <Col className={'my-auto'}>
-                                20 ms
+                                {(avgPing.current !== "N/A") ? avgPing.current + ' ms' : 'N/A'}
                             </Col>
                             <Col>
                                 <h5>Jitter</h5>
                                 <h1><RiArrowUpDownFill/></h1>
                             </Col>
                             <Col className={'my-auto'}>
-                                2 ms
+                                {(avgJitter.current !== "N/A") ? avgJitter.current + ' ms' : 'N/A'}
                             </Col>
                         </Row>
 
@@ -71,7 +104,7 @@ function ResultsModalView(props) {
                                 <h1><FaYoutube/></h1>
                             </Col>
                             <Col className={'my-auto'}>
-                                HD
+                                {(avgDown.current > 5) ? 'HD' : 'SD'}
                             </Col>
                             <Col>
                                 <h5>MOS</h5>
@@ -87,7 +120,7 @@ function ResultsModalView(props) {
                     <Container>
                         <Row>
                             <Col>
-                                <div style={{textAlign: 'left'}}><h5>Location: {displayLocation()}</h5></div>
+                                <div style={{textAlign: 'left'}}><h5>Location: {location.current}</h5></div>
                             </Col>
                         </Row>
                     </Container>
