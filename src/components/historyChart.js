@@ -10,11 +10,13 @@ const HistoryChart = (props) => {
 
   useEffect(() => {
     let count = 1;
-    for (let i = 0; i < props.data1.length; i++) {
-      label.current[i] = count;
-      count = count + 1;
+    if (props.data1.legth != null) {
+      for (let i = 0; i < props.data1.length; i++) {
+        label.current[i] = count;
+        count = count + 1;
+      }
     }
-  }, [props.data1.length]);
+  }, []);
 
   const options = {
     maintainAspectRatio: false,
@@ -80,7 +82,7 @@ const HistoryChart = (props) => {
       {
         label: "Upload Speed",
         lineTension: 0.5,
-        data: props.data2,
+        data: JSON.parse(sessionStorage.getItem("dataUp")),
         fill: true,
         backgroundColor: "rgba(00,122,22,0.5)",
         borderColor: "rgba(100,52,100,0.7)",
