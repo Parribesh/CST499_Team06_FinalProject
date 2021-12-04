@@ -15,17 +15,20 @@ function ResultsModalView(props) {
     // const avgPing = props.avgPing;
     const avgJitter = useRef(0);
     // const avgJitter = props.avgJitter;
-    const displayLocation = () => {
-        if (props.location.address === "") {
-            return "Location Not Available. Please Make Sure Location is Enabled."
-        } else {
-            return props.location.address
-        }
-    }
+    const location = useRef([]);
+    // const displayLocation = () => {
+    //     // if (props.location.length === 0) {
+    //     //     return "Location Not Available. Please Make Sure Location is Enabled."
+    //     // } else {
+    //     //     return props.location[0]
+    //     // }
+    //     console.log(props.location);
+    // }
     avgDown.current = props.avgDown;
     avgUp.current = props.avgUp;
     avgPing.current = props.avgPing;
     avgJitter.current = props.avgJitter;
+    location.current = [...props.location]
     // let avgDown = 150;
     // let avgUp = 55;
     // let avgPing = 24;
@@ -117,7 +120,7 @@ function ResultsModalView(props) {
                     <Container>
                         <Row>
                             <Col>
-                                <div style={{textAlign: 'left'}}><h5>Location: {displayLocation()}</h5></div>
+                                <div style={{textAlign: 'left'}}><h5>Location: {location.current}</h5></div>
                             </Col>
                         </Row>
                     </Container>

@@ -48,7 +48,6 @@ function Tester() {
   const handleShow = () => setShow(true);
 
   const changeValue = () => {
-    console.log(regionName);
     let test = network.getDownloadSpeed(speed, stab);
     // else{
     //   console.log("Virginia")
@@ -178,7 +177,7 @@ function Tester() {
 
     setTimeout(() => {
       window.location.href = "/PingJitterTest"
-    }, 65000)
+    }, 60000)
   };
 
   window.onload = function () {
@@ -196,6 +195,8 @@ function Tester() {
       //   2: position unavailable (error response from location provider)
       //   3: timed out
       startTesting()
+      //location doesn't get set on error, temp fix
+      sessionStorage.location = JSON.stringify("N/A");
     };
     navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
 
@@ -228,10 +229,7 @@ function Tester() {
 
             }
           }
-
-          console.log(city + ", " + state + ", " + zip);
           let shortAddress = city + ", " + state + ", " + zip;
-          console.log(address);
 
           setLocation({
             loaded: true,
@@ -242,16 +240,17 @@ function Tester() {
             address: shortAddress,
           });
 
-          if(JSON.parse(sessionStorage.getItem('location')) != null){
-            let currentValues =  JSON.parse(sessionStorage.getItem('location'));
-            currentValues.push(shortAddress);
-            sessionStorage.setItem('location', JSON.stringify(currentValues));
-
-          }else{
-            let currentValues = [];
-            currentValues.push(shortAddress);
-            sessionStorage.setItem('location', JSON.stringify(currentValues));
-          }
+          // We're only doing session storage, so no need to store the location multiple times
+          // if(JSON.parse(sessionStorage.getItem('location')) != null){
+          //   let currentValues =  JSON.parse(sessionStorage.getItem('location'));
+          //   currentValues.push(shortAddress);
+          //   sessionStorage.setItem('location', JSON.stringify(currentValues));
+          //
+          // }else{
+          //   let currentValues = [];
+          //   currentValues.push(shortAddress);
+          //   sessionStorage.setItem('location', JSON.stringify(currentValues));
+          // }
 
           // if (sessionStorage.getItem('location') != null) {
           //   var currentValues = [];
@@ -265,6 +264,8 @@ function Tester() {
           //   currentValues.push(shortAddress);
           //   sessionStorage.setItem('location', currentValues);
           // }
+          sessionStorage.location = JSON.stringify(shortAddress)
+          // sessionStorage.setItem('location', shortAddress);
         },
         (error) => {
           console.error(error);
@@ -276,19 +277,21 @@ function Tester() {
             },
             address: "N/A",
           });
-
-          if (sessionStorage.getItem('location') != null) {
-            var currentValues = [];
-            currentValues.push(sessionStorage.getItem('location'));
-            currentValues.push(location.address);
-            sessionStorage.setItem('location', currentValues);
-
-          } else {
-            // Save location
-            let currentValues = [];
-            currentValues.push(location.address);
-            sessionStorage.setItem('location', currentValues);
-          }
+          sessionStorage.location = JSON.stringify(location.address);
+          console.log("Error route...")
+          // sessionStorage.setItem('location', location.address);
+          // if (sessionStorage.getItem('location') != null) {
+          //   var currentValues = [];
+          //   currentValues.push(sessionStorage.getItem('location'));
+          //   currentValues.push(location.address);
+          //   sessionStorage.setItem('location', currentValues);
+          //
+          // } else {
+          //   // Save location
+          //   let currentValues = [];
+          //   currentValues.push(location.address);
+          //   sessionStorage.setItem('location', currentValues);
+          // }
         }
     );
   }

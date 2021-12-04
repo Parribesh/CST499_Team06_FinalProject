@@ -65,7 +65,7 @@ function generateTable() {
       if (avgPing === undefined || avgPing === ''){
           avgPing = "N/A"
       }
-      let location = JSON.parse(sessionStorage.getItem('location'))[i];
+      let location = JSON.parse(sessionStorage.getItem('location'));
       table_data.push({
           Date: new Date().toLocaleDateString(),
           Location: location,

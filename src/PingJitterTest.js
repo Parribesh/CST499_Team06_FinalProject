@@ -1,10 +1,9 @@
 import "./App.css";
-import React, { useState, useEffect, useRef } from "react";
-import { Navigation, Footer, Home, About, History, Map } from "./components";
+import React, {useEffect, useRef, useState} from "react";
 import FadeIn from "react-fade-in";
 import PingJitterChart from "./components/PingJitterChart";
-import ReactSpeedometer from "react-d3-speedometer";
 import ResultsModalView from "./components/ResultsModalView";
+
 var network = require("./networkSim");
 
 function PingJitterTest() {
@@ -16,7 +15,7 @@ function PingJitterTest() {
   const avgUp = useRef();
   const avgPing = useRef();
   const avgJitter = useRef();
-  const location = useRef();
+  const location = useRef([]);
   const [update, forceUpdate] = useState();
   const [currentAvg, updateAvg] = useState(0);
   const [currentStatus, updateStatus] = useState("Current Avg. ")
@@ -114,7 +113,7 @@ function PingJitterTest() {
         avgUp.current = JSON.parse(sessionStorage.getItem('avgUp'))[length];
         avgPing.current = JSON.parse(sessionStorage.getItem('avgPing'))[length];
         avgJitter.current = JSON.parse(sessionStorage.getItem('avgJitter'))[length];
-        location.current = JSON.parse(sessionStorage.getItem('location'))[length];
+        location.current = JSON.parse(sessionStorage.getItem('location'));
         handleShow()
       }, 2000)
     }, 10500);
@@ -150,7 +149,7 @@ function PingJitterTest() {
           <PingJitterChart data={data.current} isDone={isDone.current}></PingJitterChart>
           <p className="lead">Average Speed: {currentAvg} ms</p>
         </FadeIn>
-        <ResultsModalView location={location} hide={handleClose} show={show} avgDown={avgDown.current} avgUp={avgUp.current} avgPing={avgPing.current} avgJitter={avgJitter.current}/>
+        <ResultsModalView location={location.current} hide={handleClose} show={show} avgDown={avgDown.current} avgUp={avgUp.current} avgPing={avgPing.current} avgJitter={avgJitter.current}/>
       </center>
     </div>
   );
