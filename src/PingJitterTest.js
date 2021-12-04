@@ -27,10 +27,8 @@ function PingJitterTest() {
   const handleShow = () => setShow(true);
   let runningTotal = 0;
   const changeValue = () => {
-    const test = network.getPing(0.1, 0.8);
-    //data.current = [...data.current, test];
-    //jitterData.current = [...jitterData.current, test];
-    //data.current = [...jitterData.current];
+    const test = network.getPing(0.1, 0.2);
+    //use network.getPing(0.1, 0.4) for Virginia
     pingData.current = [...pingData.current, test];
     data.current = [...pingData.current];
     runningTotal += test;
@@ -43,7 +41,8 @@ function PingJitterTest() {
   };
 
   const jitterChangeValue = () =>{
-    const test = network.getJitter(0.1, 0.8);
+    const test = network.getJitter(0.1, 0.3);
+    //use network.getPing(0.1, 0.6) for Virginia
     jitterData.current = [...jitterData.current, test];
     data.current = [...jitterData.current];
     runningTotal += test;

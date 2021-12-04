@@ -54,7 +54,7 @@ const PingJitterChart = (props) => {
           stepSize: 0,
         },
         min: 0,
-        max: 150,
+        max: 30,
       },
       x: {
         grid: {
