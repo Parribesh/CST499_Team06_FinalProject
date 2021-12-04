@@ -8,14 +8,14 @@ import {AiFillHome, FaMap, RiHistoryFill, IoMdInformationCircleOutline} from "re
 
 function Navigation(props) {
     return (
-        <Navbar bg="dark" variant={"dark"}>
-            <Container>
+        <Navbar bg="dark" variant={"dark"} style={{height: '110px'}}>
+            <Container fluid className={'px-5'}>
                 <Navbar.Brand href={"/"} style={{fontSize: "45px"}}>
                     <img
                         alt={logo}
                         src={logo}
-                        width={100}
-                        height={100}
+                        width={80}
+                        height={80}
                         className={"d-inline-block align-center rounded"}
                         />{' '}
                         CalSpeed

@@ -58,9 +58,8 @@ function App() {
                 <Route path="/about" exact component={() => <About />} />
                 <Route path="/history" exact component={() => <History />} />
                 <Route path="/map" exact component={() => <Map />} />
-                <Route path="/Tester" component={Tester}/>
+                <Route path="/Tester" exact component={() => <Tester />}/>
             </Switch>
-            <Footer />
         </Router>
     </div>
 

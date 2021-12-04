@@ -7,10 +7,10 @@ import Row from "react-bootstrap/Row";
 
 function Footer() {
     return (
-        <footer className={"py-3 bg-dark fixed-bottom"}>
+        <footer className={"bg-dark fixed-bottom"}>
             <Container>
                 <Row>
-                    <h5 className={"text-center"}>Download the CalSpeed Mobile and Desktop Applications</h5>
+                    <h5 className={"text-center my-1"}>Download the CalSpeed Mobile and Desktop Applications</h5>
                 </Row>
                 <Row className={"text-center"}>
                     <Col>
