@@ -10,11 +10,13 @@ const HistoryChart = (props) => {
 
   useEffect(() => {
     let count = 1;
-    for (let i = 0; i < props.data1.length; i++) {
-      label.current[i] = count;
-      count = count + 1;
+    if (props.data1.legth != null) {
+      for (let i = 0; i < props.data1.length; i++) {
+        label.current[i] = count;
+        count = count + 1;
+      }
     }
-  }, [props.data1.length]);
+  }, []);
 
   const options = {
     maintainAspectRatio: false,
