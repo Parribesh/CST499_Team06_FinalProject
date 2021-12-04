@@ -238,6 +238,7 @@ function Tester() {
       testNum.current++; //Increase testNum counter
       setClearGraph(true); //Clear the graph
       setClearGraph(false); //end graph clear
+      sessionStorage.dataDown = JSON.stringify(data.current); //set download data array to the session
       data.current = []; //clear data array being sent to graph
       startUploadTest(); //Start upload test
     }, 14000); //14 second timer
