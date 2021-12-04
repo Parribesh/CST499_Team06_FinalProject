@@ -58,7 +58,6 @@ function Tester() {
     dataUp.current = [...dataUp.current, test];
     data.current = [...dataUp.current];
     avgUp += test;
-    console.log(data.current);
   };
 
   const startTest = () => {
@@ -111,7 +110,7 @@ function Tester() {
         changeUploadValue();
       }, space * i);
     }
-    sessionStorage.dataUp = JSON.stringify(data.current);
+
     //reset to 0
     setTimeout(() => {
       setValue(0);
@@ -147,6 +146,11 @@ function Tester() {
       isDone.current = true;
       startUploadTest();
     }, 31000);
+
+    setTimeout(() => {
+      sessionStorage.dataUp = JSON.stringify(data.current);
+    }, 57100);
+
     // TODO: Local vs Distance speed, Jitter, ping tests
   };
 

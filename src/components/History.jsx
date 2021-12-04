@@ -14,9 +14,16 @@ If we show a table it needs to:
   - handle if the arrays are not the same size (probably should just check if it's empty and then display N/A)
  */
 function checkTest() {
-  let data1 = [44, 33, 22, 44, 55, 44, 33, 64, 43, 43];
-  let data2 = [33, 23, 43, 65, 43, 23, 65, 34, 21, 22];
-  let label = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  let label = [];
+  if (JSON.parse(sessionStorage.getItem("dataDown")) != null) {
+    let length = JSON.parse(sessionStorage.getItem("dataDown")).length;
+    let count = 0;
+    for (let i = 0; i < length; i++) {
+      count = count + 1;
+      label = [...label, count];
+    }
+    console.log(JSON.parse(sessionStorage.getItem("dataUp")));
+  }
   if (JSON.parse(sessionStorage.getItem("avgDown")) == null) {
     return (
       <FadeIn>
@@ -35,7 +42,11 @@ function checkTest() {
           <Col>
             <h1>GRAPH</h1>
           </Col>
-          <HistoryChart data1={data1} data2={data2} label={label} />
+          <HistoryChart
+            data1={JSON.parse(sessionStorage.getItem("dataDown"))}
+            data2={JSON.parse(sessionStorage.getItem("dataUp"))}
+            label={label}
+          />
         </Row>
         <Row>
           {/*<Table id={'main-table'} striped bordered hover variant={"dark"}>*/}
