@@ -106,6 +106,23 @@ function PingJitterTest() {
         currentValues.push(Math.floor(runningTotal/jitterData.current.length));
         sessionStorage.avgJitter = JSON.stringify(currentValues);
       }
+      //Get Current Time At End of Test
+      if(JSON.parse(sessionStorage.getItem('testCompletionTime')) != null){
+        let currentValues = JSON.parse(sessionStorage.getItem('testCompletionTime'));
+        let currentDate = new Date().toLocaleDateString();
+        let currentTime = new Date().toLocaleTimeString();
+        let completionTime = currentDate + " | " + currentTime;
+        currentValues.push(completionTime);
+        sessionStorage.testCompletionTime = JSON.stringify(currentValues);
+      }
+      else{
+        let currentValues = [];
+        let currentDate = new Date().toLocaleDateString();
+        let currentTime = new Date().toLocaleTimeString();
+        let completionTime = currentDate + " | " + currentTime;
+        currentValues.push(completionTime);
+        sessionStorage.testCompletionTime = JSON.stringify(currentValues);
+      }
       // show results modal view
       setTimeout( () => {
         let length = JSON.parse(sessionStorage.getItem('avgDown')).length - 1;

@@ -66,8 +66,9 @@ function generateTable() {
           avgPing = "N/A"
       }
       let location = JSON.parse(sessionStorage.getItem('location'))[i];
+      let time = JSON.parse(sessionStorage.getItem('testCompletionTime'))[i];
       table_data.push({
-          Date: new Date().toLocaleDateString(),
+          Date: time,
           Location: location,
           Download:  avgDown + ' Mbps',
           Upload:  (avgUp !== "N/A") ? avgUp + ' Mbps' : 'N/A',
