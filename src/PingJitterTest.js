@@ -148,23 +148,20 @@ function PingJitterTest() {
       startJitterTest();
     }, 17500)
   }
-  useEffect(() => {
-
-  });
 
   return (
-      <Container className={"center bg-body bg-opacity-25"} style={{}}>
+      <Container className={"center bg-body bg-opacity-25 my-5"} style={{}}>
           <center>
             <FadeIn>
               <div className="jumbotron jumbotron-fluid">
                 <div className="container">
-                  <h1 className="display-4">{testType} Test</h1>
-                  <p className="lead">Current Testing Region: {region}</p>
+                  <h1 className="display-2">{testType} Test</h1>
+                  <p className="lead display-6">Current Testing Region: {region}</p>
                   <hr className="my-4"></hr>
                 </div>
               </div>
               <PingJitterChart data={data.current} isDone={isDone.current}></PingJitterChart>
-              <p className="lead">Average Speed: {currentAvg} ms</p>
+              <p className="lead"><h3>Average Speed: {currentAvg} ms</h3></p>
             </FadeIn>
             <ResultsModalView location={location.current} hide={handleClose} show={show} avgDown={avgDown.current} avgUp={avgUp.current} avgPing={avgPing.current} avgJitter={avgJitter.current}/>
           </center>

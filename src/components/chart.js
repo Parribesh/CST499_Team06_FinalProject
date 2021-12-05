@@ -41,12 +41,17 @@ const Chart = (props) => {
         position: "top",
         labels: {
           fontColor: "#212A49",
-          fontSize: 20,
+          font: {
+            size: 20
+          },
         },
       },
       title: {
         display: true,
         text: "Your Speed ",
+        font: {
+          size: 20
+        },
       },
     },
     scales: {
@@ -58,6 +63,9 @@ const Chart = (props) => {
           fontColor: "green",
           display: true,
           stepSize: 0,
+          font: {
+            size: 16
+          },
         },
         min: 10,
         max: 200,
@@ -66,6 +74,9 @@ const Chart = (props) => {
         title: {
           display: true,
           text: "Time In Sec",
+          font: {
+            size: 20
+          },
         },
         grid: {
           display: false,
@@ -87,12 +98,12 @@ const Chart = (props) => {
           display: false,
           datasets: [
             {
-              label: "download Speed",
+              label: "Download Speed",
               lineTension: 0.5,
               data: chartData.current,
               fill: true,
-              backgroundColor: "rgba(255,0,34,0.73)",
-              borderColor: "rgba(100,52,100,0.7)",
+              backgroundColor: "rgba(72,108,208,0.80)",
+              borderColor: "rgba(0,0,0,0.6)",
             },
           ],
         };

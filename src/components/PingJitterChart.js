@@ -43,7 +43,10 @@ const PingJitterChart = (props) => {
       y: {
         title: {
           display: true,
-          text: "Time in ms"
+          text: "Time in ms",
+          font: {
+            size: 20
+          },
         },
         grid: {
           display: false,
@@ -51,7 +54,10 @@ const PingJitterChart = (props) => {
         ticks: {
           fontColor: "green",
           display: true,
-          stepSize: 0,
+          // stepSize: 0,
+          font: {
+            size: 20
+          },
         },
         min: 0,
         max: 30,
@@ -63,7 +69,7 @@ const PingJitterChart = (props) => {
         ticks: {
           fontColor: "green",
           display: false,
-          stepSize: 5,
+          // stepSize: 5,
         },
         beginAtZero: false,
       },
@@ -105,8 +111,8 @@ const PingJitterChart = (props) => {
       <Line
         data={props.isDone ? data2 : data1}
         options={options}
-        width={700}
-        height={220}
+        width={500}
+        height={400}
       />
     </div>
   );

@@ -60,8 +60,8 @@ function ResultsModalView(props) {
                 className={'resultsmodal'}
             >
                 <Modal.Header>
-                    <Modal.Title><h1>Results</h1></Modal.Title>
-                    <Button onClick={props.hide} variant={'secondary'}>Close</Button>
+                    <Modal.Title><h1 className={'mx-3'}>Results</h1></Modal.Title>
+                    <Button className={'mx-2'} onClick={props.hide} variant={'secondary'}>Close</Button>
                 </Modal.Header>
                 <Modal.Body className={'modalBody'}>
                     <Container>
@@ -124,7 +124,7 @@ function ResultsModalView(props) {
                                 <div style={{textAlign: 'left'}}><h5>Location: {location.current}</h5></div>
                             </Col>
                             <Col className={'my-auto'}>
-                                <div style={{textAlign: 'right'} }><Button href={"/history"} style={{fontSize: "20px", verticalAlign:"middle"}}><RiHistoryFill/>View History</Button></div>
+                                <div style={{textAlign: 'right'} }><Button href={"/history"} style={{fontSize: "20px", verticalAlign:"middle"}}><RiHistoryFill/> View History</Button></div>
                             </Col>
                         </Row>
                     </Container>

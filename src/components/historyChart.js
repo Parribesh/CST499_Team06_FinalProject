@@ -28,12 +28,17 @@ const HistoryChart = (props) => {
         position: "top",
         labels: {
           fontColor: "#212A49",
-          fontSize: 20,
+          font: {
+            size: 20
+          },
         },
       },
       title: {
         display: true,
         text: "Your Speed ",
+        font: {
+          size: 25
+        },
       },
     },
     scales: {
@@ -45,14 +50,21 @@ const HistoryChart = (props) => {
           fontColor: "green",
           display: true,
           stepSize: 0,
+          font: {
+            size: 15
+          },
         },
-        min: 10,
-        max: 200,
+        min: 0,
+        max: 150,
+
       },
       x: {
         title: {
           display: true,
           text: "Time In Sec",
+          font: {
+            size: 20
+          },
         },
         grid: {
           display: false,
@@ -72,12 +84,12 @@ const HistoryChart = (props) => {
     display: false,
     datasets: [
       {
-        label: "download Speed",
+        label: "Download Speed",
         lineTension: 0.5,
         data: props.data1,
         fill: true,
-        backgroundColor: "rgba(255,192,192,0.2)",
-        borderColor: "rgba(255, 192, 192, 0.7)",
+        backgroundColor: "rgba(72,108,208,0.3)",
+        borderColor: "rgba(0, 0, 0, 0.3)",
       },
       {
         label: "Upload Speed",

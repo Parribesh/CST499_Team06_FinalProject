@@ -381,7 +381,7 @@ function Tester() {
             <div className="container">
               <h1 className="display-1">{testName}</h1>
               <p className="display-6">Current Testing Region: {regionName}</p>
-              <hr className="my-4"></hr>
+              <hr className="my-2"></hr>
             </div>
           </div>
           <ReactSpeedometer
@@ -398,6 +398,11 @@ function Tester() {
             needleColor={"#ff3814"}
             //needleTransitionDuration={100}
             needleTransition={"easeBounceIn"}
+            ringWidth={75}
+            width={450}
+            height={350}
+            labelFontSize={15}
+            valueTextFontSize={22}
           />
           <Chart
             data={data.current}

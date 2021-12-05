@@ -6,27 +6,27 @@ import Col from "react-bootstrap/Col";
 
 function About() {
     return (
-        <Container>
+        <Container fluid>
             <Row>
-                <Col><h1 className={'display-2'}>About</h1></Col>
+                <Col><h1 className={'display-2 mx-5'}>About</h1></Col>
             </Row>
             <Row className={'text-responsive'}>
                 <Col>
-                    <div className={'my-2'}>
+                    <div className={'my-2 mx-5'}>
                         CalSPEED, released by the California Public Utilities Commission (CPUC), empowers end-users with a professional-level, industry-standard testing tool to measure the quality and
                         speed of their residential fixed internet connection.
                         CalSPEED conducts a two-step test with a California server and a Virginia server in order to ensure statistically significant measurements.
                     </div>
-                    <div className={'my-2'}>
+                    <div className={'my-2 mx-5'}>
                         The test captures upload speed, download speed, message delay (latency), and message delay variation (jitter). The first two metrics measure broadband throughput, while the second two measure the streaming quality of your mobile broadband connection.
                         Test your upload speed, download speed, message delay (latency), and message delay variation (jitter) using CalSPEED.
                     </div>
 
-                    <div className={'my-2'}>
+                    <div className={'my-2 mx-5'}>
                         Results are uploaded to a public repository at CPUC to provide you with the ability to compare broadband coverage at your location with other areas in California.
                         The test results may vary based on factors such as location, end-user hardware, network congestion, and time of day.
                     </div>
-                    <div className={'my-4'}>
+                    <div className={'my-4 mx-5'}>
                         The MOS (Mean Opinion Score) classification for a test result is as follows:
                         <ul>
                             <li>Satisfactory: Higher than or equal to 4.0</li>
@@ -34,7 +34,7 @@ function About() {
                             <li>N/A: We can't determine the MOS value.</li>
                         </ul>
                     </div>
-                    <div className={'my-4'}>
+                    <div className={'my-4 mx-5'}>
                         Video streaming quality is based on the test result to the California server:
                         <ul>
                             <li>HD (High Definition): Smooth streaming of 720p or above</li>
@@ -44,7 +44,7 @@ function About() {
                         </ul>
                     </div>
                     <div>
-                        CalSPEED is developed by California State University, Monterey Bay's Computer Science Program.
+                        <p className={'mx-5 text-center'}>CalSPEED is developed by California State University, Monterey Bay's Computer Science Program.</p>
                     </div>
                 </Col>
             </Row>
