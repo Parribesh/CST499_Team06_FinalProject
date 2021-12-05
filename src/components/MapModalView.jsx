@@ -26,7 +26,7 @@ function generateFixedBroadbandValues(isp, index) {
             <td>{isp}</td>
             <td>{connectionTypes[index]}</td>
             <td>{getRandomInt(10,20).toFixed(1)} - {getRandomInt(50,100).toFixed(1)}</td>
-            <td>{getRandomInt(0,10).toFixed(1)} - {getRandomInt(10,15).toFixed(1)}</td>
+            <td>{getRandomInt(1,10).toFixed(1)} - {getRandomInt(10,15).toFixed(1)}</td>
         </tr>
     );
 }
@@ -37,7 +37,7 @@ function generateMobileBroadbandValues(isp, index) {
             <td>{isp}</td>
             <td>{mobileConnectionTypes[index]}</td>
             <td>{getRandomInt(5,20).toFixed(1)} - {getRandomInt(30,50).toFixed(1)}</td>
-            <td>{getRandomInt(0,5).toFixed(1)} - {getRandomInt(7,13).toFixed(1)}</td>
+            <td>{getRandomInt(1,5).toFixed(1)} - {getRandomInt(7,13).toFixed(1)}</td>
         </tr>
     );
 }

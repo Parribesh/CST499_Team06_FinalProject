@@ -63,7 +63,7 @@ tr {
 }
 
 .text-responsive {
-  font-size: calc(20% + 1vw + 1vh);
+  font-size: calc(50% + 0.5vw + 0.5vh);
 }
 
 .test {
