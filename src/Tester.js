@@ -145,6 +145,7 @@ function Tester() {
     }
 
     setTimeout(() => {
+      setValue(0);
       // If current test number = 4 , then we are done testing and we save our test results to sessionStorage. Also show the results modal view. Else We start the Virginia Tests
       if (testNum.current > 3) {
         setValue(0);
@@ -228,8 +229,10 @@ function Tester() {
       data.current = []; //Clear data array being sent to graph
       startDownloadTest(); //Start download test
     }, 1500); //1.5 second timer
-    // TODO: better transition to upload test
-
+    //Reset to 0 after CA download test
+    setTimeout(()=>{
+      setValue(0);
+    }, 15000)
     setTimeout(() => {
       //isDone.current = true; //No longer used.
       testNum.current++; //Increase testNum counter
@@ -238,7 +241,7 @@ function Tester() {
       sessionStorage.dataDown = JSON.stringify(data.current); //set download data array to the session
       data.current = []; //clear data array being sent to graph
       startUploadTest(); //Start upload test
-    }, 14000); //14 second timer
+    }, 16000); //16 second timer
     // TODO: Local vs Distance speed, Jitter, ping tests
     setTimeout(() => {
       sessionStorage.dataUp = JSON.stringify(data.current);
@@ -403,7 +406,6 @@ function Tester() {
           />
           <Chart
             data={data.current}
-            // isDone={isDone.current}
             isHistory={false}
             clear={clearGraph}
             testType={testType}
