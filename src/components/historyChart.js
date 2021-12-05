@@ -82,7 +82,7 @@ const HistoryChart = (props) => {
       {
         label: "Upload Speed",
         lineTension: 0.5,
-        data: JSON.parse(sessionStorage.getItem("dataUp")),
+        data: props.data2,
         fill: true,
         backgroundColor: "rgba(00,122,22,0.5)",
         borderColor: "rgba(100,52,100,0.7)",

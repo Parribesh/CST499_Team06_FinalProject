@@ -1,6 +1,7 @@
 import "./App.css";
 import React, {useEffect, useRef, useState} from "react";
 import FadeIn from "react-fade-in";
+import Container from "react-bootstrap/Container";
 import PingJitterChart from "./components/PingJitterChart";
 import ResultsModalView from "./components/ResultsModalView";
 
@@ -152,22 +153,22 @@ function PingJitterTest() {
   });
 
   return (
-    <div className="App" className={"center"}>
-      <center>
-        <FadeIn>
-          <div className="jumbotron jumbotron-fluid">
-            <div className="container">
-              <h1 className="display-4">{testType} Test</h1>
-              <p className="lead">Current Testing Region: {region}</p>
-              <hr className="my-4"></hr>
-            </div>
-          </div>
-          <PingJitterChart data={data.current} isDone={isDone.current}></PingJitterChart>
-          <p className="lead">Average Speed: {currentAvg} ms</p>
-        </FadeIn>
-        <ResultsModalView location={location.current} hide={handleClose} show={show} avgDown={avgDown.current} avgUp={avgUp.current} avgPing={avgPing.current} avgJitter={avgJitter.current}/>
-      </center>
-    </div>
+      <Container className={"center bg-body bg-opacity-25"} style={{}}>
+          <center>
+            <FadeIn>
+              <div className="jumbotron jumbotron-fluid">
+                <div className="container">
+                  <h1 className="display-4">{testType} Test</h1>
+                  <p className="lead">Current Testing Region: {region}</p>
+                  <hr className="my-4"></hr>
+                </div>
+              </div>
+              <PingJitterChart data={data.current} isDone={isDone.current}></PingJitterChart>
+              <p className="lead">Average Speed: {currentAvg} ms</p>
+            </FadeIn>
+            <ResultsModalView location={location.current} hide={handleClose} show={show} avgDown={avgDown.current} avgUp={avgUp.current} avgPing={avgPing.current} avgJitter={avgJitter.current}/>
+          </center>
+      </Container>
   );
 }
 export default PingJitterTest;

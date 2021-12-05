@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef, useState} from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -6,6 +6,7 @@ import Table from "react-bootstrap/Table";
 import FadeIn from "react-fade-in";
 import HistoryChart from "./historyChart";
 const html_tablify = require("html-tablify");
+
 function checkTest() {
   let label = [];
   if (JSON.parse(sessionStorage.getItem("dataDown")) != null) {
@@ -40,17 +41,34 @@ function checkTest() {
       </FadeIn>
     );
   } else {
+    var d1 = [];
+    var d2 = [];
+    var l = [];
+    let size = JSON.parse(sessionStorage.getItem("avgDown")).length;
+    for (let i = 0; i < size; i++) {
+      let avgDown = JSON.parse(sessionStorage.getItem("avgDown"))[i];
+      d1.push(avgDown);
+      let avgUp = JSON.parse(sessionStorage.getItem("avgUp"))[i];
+      d2.push(avgUp);
+      let time = JSON.parse(sessionStorage.getItem('testCompletionTime'))[i];
+      l.push(time);
+    }
+
     return (
-      <Container>
-        <Row className={"justify-content-center"}>
-          <HistoryChart
-            data1={JSON.parse(sessionStorage.getItem("dataDown"))}
-            data2={JSON.parse(sessionStorage.getItem("dataUp"))}
-            label={label}
-          />
-        </Row>
-        <Row>{generateTable()}</Row>
-      </Container>
+        <Container>
+          <Container><h1 className={'display-2 text-center my-3'}>History</h1></Container>
+          <Container >
+            <Row className={"bg-body bg-opacity-25 my-3 justify-content-center"} >
+              <HistoryChart
+                  data1={d1}
+                  data2={d2}
+                  label={l}
+              />
+            </Row>
+            <Row>{generateTable()}</Row>
+          </Container>
+        </Container>
+
     );
   }
 }
@@ -58,8 +76,15 @@ function checkTest() {
 function generateTable() {
   const Table = require("react-bootstrap/Table");
   let table_data = [];
-  let size = JSON.parse(sessionStorage.getItem("avgDown")).length;
-  for (let i = 0; i < size; i++) {
+  let down = JSON.parse(sessionStorage.getItem("avgDown"));
+  let up = JSON.parse(sessionStorage.getItem("avgUp"));
+  console.log("Down: " + down);
+  console.log('Up: ' + up)
+  let size1 = JSON.parse(sessionStorage.getItem("avgDown")).length;
+  let size2 = JSON.parse(sessionStorage.getItem("avgUp")).length;
+  console.log('avgDown Size: ' + size1)
+  console.log('avgDown Size: ' + size2)
+  for (let i = 0; i < size1; i++) {
     let avgDown = JSON.parse(sessionStorage.getItem("avgDown"))[i];
     let avgUp = JSON.parse(sessionStorage.getItem("avgUp"))[i];
     if (avgUp === undefined || avgUp === "") {

@@ -156,10 +156,9 @@ function Tester() {
           let currentValues = JSON.parse(sessionStorage.getItem("avgDown"));
           currentValues.push(
             Math.floor(
-              avgDownCal / calDataDown.current.length +
-                avgDownVirg / virgDataDown.current.length
-            ) / 2
-          );
+                ((avgDownCal / calDataDown.current.length) +
+                    (avgDownVirg / virgDataDown.current.length)) / 2
+                    ));
           //JSON.stringify spits it back out as a string for sessionStorage
           sessionStorage.avgDown = JSON.stringify(currentValues);
           //Throw a dummy value into avgUp to make it easier to display results
@@ -171,25 +170,23 @@ function Tester() {
           let currentValues = [];
           currentValues.push(
             Math.floor(
-              (avgDownCal / calDataDown.current.length +
-                avgDownVirg / virgDataDown.current.length) /
-                2
-            )
-          );
+              ((avgDownCal / calDataDown.current.length) +
+                  (avgDownVirg / virgDataDown.current.length)) / 2
+                  ));
           sessionStorage.avgDown = JSON.stringify(currentValues);
           //We're gonna just throw a dummy value into avgUp as well to make it easier to display results
           let dummyValues = [""];
           sessionStorage.avgUp = JSON.stringify(dummyValues);
         }
+
         //Check if the key 'avgUp' already exists in sessionStorage. If so retrieve current data and append to it.
         if (JSON.parse(sessionStorage.getItem("avgUp")).length > 0) {
           let currentValues = JSON.parse(sessionStorage.getItem("avgUp"));
           //Taking avg of both California and Virginia Upload Test Values
           currentValues[currentValues.length - 1] = Math.floor(
-            (avgUpCal / calDataUp.current.length +
-              avgUpVirg / virgDataUp.current.length) /
-              2
-          );
+            ((avgUpCal / calDataUp.current.length) +
+                (avgUpVirg / virgDataUp.current.length)) / 2
+                  );
           sessionStorage.avgUp = JSON.stringify(currentValues); //Store value in sessionStorage
         } else {
           // Else key does not exist yet. So make a new array append value and save to sessionStorage
@@ -197,11 +194,9 @@ function Tester() {
           //Taking avg of both California and Virginia Upload Test Values
           currentValues.push(
             Math.floor(
-              (avgUpCal / calDataUp.current.length +
-                avgUpVirg / virgDataUp.current.length) /
-                2
-            )
-          );
+                ((avgUpCal / calDataUp.current.length) +
+                    (avgUpVirg / virgDataUp.current.length)) / 2
+                    ));
           sessionStorage.avgUp = JSON.stringify(currentValues); //Store value in sessionStorage
         }
         // Show results Modal View
@@ -379,7 +374,7 @@ function Tester() {
   }
 
   return (
-    <Container className={"bg-body bg-opacity-25 my-5"} style={{}}>
+    <Container className={"center bg-body bg-opacity-25 my-5"} style={{}}>
       <center>
         <FadeIn>
           <div className="jumbotron jumbotron-fluid">
