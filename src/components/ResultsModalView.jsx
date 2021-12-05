@@ -1,10 +1,11 @@
-import {FaDownload, FaUpload, FaYoutube, FaChartBar, FaClock, RiArrowUpDownFill} from "react-icons/all";
+import {FaDownload, FaUpload, FaYoutube, FaChartBar, FaClock, RiArrowUpDownFill, RiHistoryFill} from "react-icons/all";
+
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import {useRef} from "react";
+import React, {useRef} from "react";
 
 function ResultsModalView(props) {
     const avgDown = useRef(0);
@@ -60,7 +61,7 @@ function ResultsModalView(props) {
             >
                 <Modal.Header>
                     <Modal.Title><h1>Results</h1></Modal.Title>
-                    <Button onClick={props.hide}>Close</Button>
+                    <Button onClick={props.hide} variant={'secondary'}>Close</Button>
                 </Modal.Header>
                 <Modal.Body className={'modalBody'}>
                     <Container>
@@ -119,13 +120,14 @@ function ResultsModalView(props) {
                 <Modal.Footer>
                     <Container>
                         <Row>
-                            <Col>
+                            <Col className={'my-auto'}>
                                 <div style={{textAlign: 'left'}}><h5>Location: {location.current}</h5></div>
+                            </Col>
+                            <Col className={'my-auto'}>
+                                <div style={{textAlign: 'right'} }><Button href={"/history"} style={{fontSize: "20px", verticalAlign:"middle"}}><RiHistoryFill/>View History</Button></div>
                             </Col>
                         </Row>
                     </Container>
-
-
                 </Modal.Footer>
             </Modal>
         </>

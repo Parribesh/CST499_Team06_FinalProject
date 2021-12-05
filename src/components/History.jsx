@@ -5,6 +5,7 @@ import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import FadeIn from "react-fade-in";
 import HistoryChart from "./historyChart";
+import Collapse from "react-bootstrap/Collapse";
 const html_tablify = require("html-tablify");
 
 function checkTest() {
@@ -43,7 +44,7 @@ function checkTest() {
   } else {
     var d1 = [];
     var d2 = [];
-    var l = [];
+    var times = [];
     let size = JSON.parse(sessionStorage.getItem("avgDown")).length;
     for (let i = 0; i < size; i++) {
       let avgDown = JSON.parse(sessionStorage.getItem("avgDown"))[i];
@@ -51,24 +52,25 @@ function checkTest() {
       let avgUp = JSON.parse(sessionStorage.getItem("avgUp"))[i];
       d2.push(avgUp);
       let time = JSON.parse(sessionStorage.getItem('testCompletionTime'))[i];
-      l.push(time);
+      times.push(time);
     }
 
     return (
-        <Container>
-          <Container><h1 className={'display-2 text-center my-3'}>History</h1></Container>
-          <Container >
-            <Row className={"bg-body bg-opacity-25 my-3 justify-content-center"} >
-              <HistoryChart
-                  data1={d1}
-                  data2={d2}
-                  label={l}
-              />
-            </Row>
-            <Row>{generateTable()}</Row>
-          </Container>
-        </Container>
-
+        <FadeIn>
+            <Container>
+                <Container><h1 className={'display-2 text-center my-3'}>History</h1></Container>
+                <Container >
+                    <Row className={"bg-body bg-opacity-25 my-3 justify-content-center"} >
+                        <HistoryChart
+                            data1={d1}
+                            data2={d2}
+                            label={times}
+                        />
+                    </Row>
+                    <Row>{generateTable()}</Row>
+                </Container>
+            </Container>
+        </FadeIn>
     );
   }
 }
