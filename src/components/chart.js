@@ -73,7 +73,7 @@ const Chart = (props) => {
       x: {
         title: {
           display: true,
-          text: "Time In Sec",
+          text: "",
           font: {
             size: 20
           },
