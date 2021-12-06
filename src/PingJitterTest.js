@@ -30,6 +30,10 @@ function PingJitterTest() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   let runningTotal = 0;
+  let californiaPing = 0;
+  let californiaJitter = 0;
+  let virginiaPing = 0;
+  let virginiaJitter = 0;
 
   const changeValue = () => {
     const test = network.getPing(0.1, 0.2);
@@ -90,27 +94,29 @@ function PingJitterTest() {
       }, 1000 * i);
     }
     setTimeout(()=>{
-      if(sessionStorage.getItem('avgPing') != null){
-        //JSON.parse lets us pull the values out as whatever type
-        //We store it as an array so it'll always be an array
-        let currentValues = JSON.parse(sessionStorage.getItem('avgPing'));
-        currentValues.push(Math.floor(runningTotal/pingData.current.length));
-        //JSON.stringify spits it back out as a string for sessionStorage
-        sessionStorage.avgPing = JSON.stringify(currentValues);
-        //Throw a dummy value into avgUp to make it easier to display results
-        let old_values = JSON.parse(sessionStorage.getItem('avgJitter'));
-        old_values.push('');
-        sessionStorage.avgJitter = JSON.stringify(old_values);
-
-      }else{
-        //Make it an array before you add it to sessionStorage
-        let currentValues = [];
-        currentValues.push(Math.floor(runningTotal/pingData.current.length));
-        sessionStorage.avgPing = JSON.stringify(currentValues);
-        //We're gonna just throw a dummy value into avgUp as well to make it easier to display results
-        let dummyValues = [''];
-        sessionStorage.avgJitter = JSON.stringify(dummyValues);
-      }
+      californiaPing = Math.floor(runningTotal/pingData.current.length);
+      console.log("Cali Ping: " + californiaPing);
+    //   if(sessionStorage.getItem('avgPing') != null){
+    //     //JSON.parse lets us pull the values out as whatever type
+    //     //We store it as an array so it'll always be an array
+    //     let currentValues = JSON.parse(sessionStorage.getItem('avgPing'));
+    //     currentValues.push(Math.floor(runningTotal/pingData.current.length));
+    //     //JSON.stringify spits it back out as a string for sessionStorage
+    //     sessionStorage.avgPing = JSON.stringify(currentValues);
+    //     //Throw a dummy value into avgUp to make it easier to display results
+    //     let old_values = JSON.parse(sessionStorage.getItem('avgJitter'));
+    //     old_values.push('');
+    //     sessionStorage.avgJitter = JSON.stringify(old_values);
+    //
+    //   }else{
+    //     //Make it an array before you add it to sessionStorage
+    //     let currentValues = [];
+    //     currentValues.push(Math.floor(runningTotal/pingData.current.length));
+    //     sessionStorage.avgPing = JSON.stringify(currentValues);
+    //     //We're gonna just throw a dummy value into avgUp as well to make it easier to display results
+    //     let dummyValues = [''];
+    //     sessionStorage.avgJitter = JSON.stringify(dummyValues);
+    //   }
     }, 15500);
   };
 
@@ -122,36 +128,37 @@ function PingJitterTest() {
       }, 1000 * i);
     }
     setTimeout(()=>{
-      if(JSON.parse(sessionStorage.getItem('avgJitter')).length > 0){
-        let currentValues =  JSON.parse(sessionStorage.getItem('avgJitter'));
-        //if(currentValues.get(currentValues.length) === null){
-        currentValues[currentValues.length - 1] = Math.floor(runningTotal/jitterData.current.length);
-        //}
-        //currentValues.push(Math.floor(avgUp/data.current.length));
-        sessionStorage.avgJitter = JSON.stringify(currentValues);
-
-      }else{
-        let currentValues = [];
-        currentValues.push(Math.floor(runningTotal/jitterData.current.length));
-        sessionStorage.avgJitter = JSON.stringify(currentValues);
-      }
-      //Get Current Time At End of Test
-      if(JSON.parse(sessionStorage.getItem('testCompletionTime')) != null){
-        let currentValues = JSON.parse(sessionStorage.getItem('testCompletionTime'));
-        let currentDate = new Date().toLocaleDateString();
-        let currentTime = new Date().toLocaleTimeString();
-        let completionTime = currentDate + " | " + currentTime;
-        currentValues.push(completionTime);
-        sessionStorage.testCompletionTime = JSON.stringify(currentValues);
-      }
-      else{
-        let currentValues = [];
-        let currentDate = new Date().toLocaleDateString();
-        let currentTime = new Date().toLocaleTimeString();
-        let completionTime = currentDate + " | " + currentTime;
-        currentValues.push(completionTime);
-        sessionStorage.testCompletionTime = JSON.stringify(currentValues);
-      }
+          californiaJitter = Math.floor(runningTotal/jitterData.current.length);
+    //   if(JSON.parse(sessionStorage.getItem('avgJitter')).length > 0){
+    //     let currentValues =  JSON.parse(sessionStorage.getItem('avgJitter'));
+    //     //if(currentValues.get(currentValues.length) === null){
+    //     currentValues[currentValues.length - 1] = Math.floor(runningTotal/jitterData.current.length);
+    //     //}
+    //     //currentValues.push(Math.floor(avgUp/data.current.length));
+    //     sessionStorage.avgJitter = JSON.stringify(currentValues);
+    //
+    //   }else{
+    //     let currentValues = [];
+    //     currentValues.push(Math.floor(runningTotal/jitterData.current.length));
+    //     sessionStorage.avgJitter = JSON.stringify(currentValues);
+    //   }
+    //   //Get Current Time At End of Test
+    //   // if(JSON.parse(sessionStorage.getItem('testCompletionTime')) != null){
+    //   //   let currentValues = JSON.parse(sessionStorage.getItem('testCompletionTime'));
+    //   //   let currentDate = new Date().toLocaleDateString();
+    //   //   let currentTime = new Date().toLocaleTimeString();
+    //   //   let completionTime = currentDate + " | " + currentTime;
+    //   //   currentValues.push(completionTime);
+    //   //   sessionStorage.testCompletionTime = JSON.stringify(currentValues);
+    //   // }
+    //   // else{
+    //   //   let currentValues = [];
+    //   //   let currentDate = new Date().toLocaleDateString();
+    //   //   let currentTime = new Date().toLocaleTimeString();
+    //   //   let completionTime = currentDate + " | " + currentTime;
+    //   //   currentValues.push(completionTime);
+    //   //   sessionStorage.testCompletionTime = JSON.stringify(currentValues);
+    //   // }
     }, 10500);
   }
 
@@ -167,12 +174,16 @@ function PingJitterTest() {
         virginiaChangeValue();
       }, 1000 * i);
     }
+
     setTimeout(()=>{
+      virginiaPing = Math.floor(runningTotal/virginiaPingData.current.length);
+      console.log("Virg Ping: " + virginiaPing);
       if(sessionStorage.getItem('avgPing') != null){
         //JSON.parse lets us pull the values out as whatever type
         //We store it as an array so it'll always be an array
         let currentValues = JSON.parse(sessionStorage.getItem('avgPing'));
-        currentValues.push(Math.floor(runningTotal/pingData.current.length));
+        //average both values
+        currentValues.push(Math.floor((californiaPing + virginiaPing)/2));
         //JSON.stringify spits it back out as a string for sessionStorage
         sessionStorage.avgPing = JSON.stringify(currentValues);
         //Throw a dummy value into avgUp to make it easier to display results
@@ -183,7 +194,7 @@ function PingJitterTest() {
       }else{
         //Make it an array before you add it to sessionStorage
         let currentValues = [];
-        currentValues.push(Math.floor(runningTotal/pingData.current.length));
+        currentValues.push(Math.floor((californiaPing + virginiaPing)/2));
         sessionStorage.avgPing = JSON.stringify(currentValues);
         //We're gonna just throw a dummy value into avgUp as well to make it easier to display results
         let dummyValues = [''];
@@ -199,18 +210,22 @@ function PingJitterTest() {
         virginiaJitterChangeValue();
       }, 1000 * i);
     }
+
     setTimeout(()=>{
+      virginiaJitter = runningTotal/virginiaJitterData.current.length;
       if(JSON.parse(sessionStorage.getItem('avgJitter')).length > 0){
         let currentValues =  JSON.parse(sessionStorage.getItem('avgJitter'));
         //if(currentValues.get(currentValues.length) === null){
-        currentValues[currentValues.length - 1] = Math.floor(runningTotal/jitterData.current.length);
+        //average the two values
+        currentValues[currentValues.length - 1] = Math.floor((californiaJitter+virginiaJitter)/2);
         //}
         //currentValues.push(Math.floor(avgUp/data.current.length));
         sessionStorage.avgJitter = JSON.stringify(currentValues);
 
       }else{
         let currentValues = [];
-        currentValues.push(Math.floor(runningTotal/jitterData.current.length));
+        //average the two values
+        currentValues.push(Math.floor((californiaJitter+virginiaJitter)/2));
         sessionStorage.avgJitter = JSON.stringify(currentValues);
       }
       //Get Current Time At End of Test
