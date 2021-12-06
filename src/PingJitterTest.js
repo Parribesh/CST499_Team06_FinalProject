@@ -91,7 +91,7 @@ function PingJitterTest() {
       //setTimeout(() => { changeValue(); }, 200 * i);
       setTimeout(() => {
         changeValue();
-      }, 1000 * i);
+      }, 250 * i);
     }
     setTimeout(()=>{
       californiaPing = Math.floor(runningTotal/pingData.current.length);
@@ -117,7 +117,7 @@ function PingJitterTest() {
     //     let dummyValues = [''];
     //     sessionStorage.avgJitter = JSON.stringify(dummyValues);
     //   }
-    }, 15500);
+    }, 4200);
   };
 
   const startJitterTest = () => {
@@ -125,7 +125,7 @@ function PingJitterTest() {
     for (var i = 0; i< 10; i++){
       setTimeout(() => {
         jitterChangeValue();
-      }, 1000 * i);
+      }, 250 * i);
     }
     setTimeout(()=>{
           californiaJitter = Math.floor(runningTotal/jitterData.current.length);
@@ -159,7 +159,7 @@ function PingJitterTest() {
     //   //   currentValues.push(completionTime);
     //   //   sessionStorage.testCompletionTime = JSON.stringify(currentValues);
     //   // }
-    }, 10500);
+    }, 2600);
   }
 
   const startVirginiaPingTest = () => {
@@ -172,7 +172,7 @@ function PingJitterTest() {
       //setTimeout(() => { changeValue(); }, 200 * i);
       setTimeout(() => {
         virginiaChangeValue();
-      }, 1000 * i);
+      }, 250 * i);
     }
 
     setTimeout(()=>{
@@ -200,7 +200,7 @@ function PingJitterTest() {
         let dummyValues = [''];
         sessionStorage.avgJitter = JSON.stringify(dummyValues);
       }
-    }, 15500);
+    }, 4200);
   };
 
   const startVirginiaJitterTest = () => {
@@ -208,7 +208,7 @@ function PingJitterTest() {
     for (var i = 0; i< 10; i++){
       setTimeout(() => {
         virginiaJitterChangeValue();
-      }, 1000 * i);
+      }, 250 * i);
     }
 
     setTimeout(()=>{
@@ -255,7 +255,7 @@ function PingJitterTest() {
         location.current = JSON.parse(sessionStorage.getItem('location'))[length];
         handleShow()
       }, 2000)
-    }, 10500);
+    }, 2600);
   }
 
   window.onload = function(){
@@ -268,14 +268,14 @@ function PingJitterTest() {
       runningTotal = 0;
       updateAvg(0);
       startJitterTest();
-    }, 17500)
+    }, 7000)
     setTimeout(() => {
       
       isDone.current = false;
       data.current = [];
       console.log("virginia ping");
       startVirginiaPingTest();
-    }, 500+17500+13000);
+    }, 12000);
     setTimeout( () => {
       data.current = [];
       console.log("virginia jitter");
@@ -283,7 +283,7 @@ function PingJitterTest() {
       runningTotal = 0;
       updateAvg(0);
       startVirginiaJitterTest();
-    }, 500+17500+13000+17000)
+    }, 18000)
   }
 
   return (
