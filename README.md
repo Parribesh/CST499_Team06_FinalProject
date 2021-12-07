@@ -1,6 +1,9 @@
 # CSUMB499 - Team 06 - Capstone Project
 
-A detailed mockup of a new design for the CalSPEED suite of network testing tools built on ReactJS along with a robust network simulator.
+CalSPEED is a program from the California Public Utilities Commission designed for measuring and recording network speeds. <br>
+The current desktop app is several years old and due for a redesign. Our goal was to create a new web app version which mimics the current desktop version's features, as a demonstration of how a new app could look. Our new web app utilizes a modern framework and operates in browser, allowing it to run on multiple systems. It is a mockup and is meant as a starting point for a complete redesign in the future.
+
+https://cst499calspeed.herokuapp.com/
 
 ## Team Members:
 Chris Estes<br>
